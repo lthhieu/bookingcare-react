@@ -1,0 +1,25 @@
+.login-background {
+    background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+
+    .card-custom {
+        border-top: 3px solid pink;
+        border-radius: 1em;
+
+        .btn-custom {
+            background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
+            color: white;
+        }
+
+        .lock-custom {
+            cursor: pointer;
+        }
+
+        .pwd-text-custom {
+            cursor: pointer;
+
+            &:hover {
+                color: #e94235;
+            }
+        }
+    }
+}
