@@ -5,8 +5,7 @@ import { push } from "connected-react-router";
 import * as actions from "../../store/actions";
 
 import './Login.scss';
-import { FormattedMessage } from 'react-intl';
-import handleLoginApi from '../../services/userService';
+import * as services from '../../services';
 class Login extends Component {
     constructor(props) {
         super(props);
@@ -23,19 +22,20 @@ class Login extends Component {
         })
     }
     handleLogin = async () => {
+        let { userLoginSuccess } = this.props
         this.setState({
             msg: ''
         })
         let { email, password } = this.state
         try {
-            let response = await handleLoginApi(email, password)
+            let response = await services.handleLoginApi(email, password)
             console.log(response)
             if (response && response.errCode === 1) {
                 this.setState({
                     msg: response.msg
                 })
             } else if (response && response.errCode === 0) {
-                this.props.userLoginSuccess(response.data)
+                userLoginSuccess(response.data)
             }
         } catch (e) {
             console.log('>>>', e.response)
@@ -120,7 +120,6 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        navigate: (path) => dispatch(push(path)),
         userLoginFail: () => dispatch(actions.userLoginFail()),
         userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
     };
