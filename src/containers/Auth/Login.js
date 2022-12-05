@@ -91,7 +91,7 @@ class Login extends Component {
                                 </div>
                             </div>
                             <div className='text-center my-1 mb-1'>
-                                <span><b>---OR---</b></span>
+                                <span>or</span>
                             </div>
                             <div className="social-auth-links text-center mt-2 mb-3">
                                 <a href="#" className="btn btn-block btn-primary">
