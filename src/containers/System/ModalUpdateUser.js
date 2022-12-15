@@ -3,28 +3,27 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-
-import { emitter } from '../../utils/emitter';
-class ModalUser extends Component {
+import _ from 'lodash';
+class ModalUpdateUser extends Component {
 
     constructor(props) {
         super(props)
         this.state = {
-            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 0, roleId: 'R1', showPassword: false,
+            id: '',
+            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', addressVi: '', addressEn: '', phoneNo: '', gender: 0, roleId: 'R1',
             err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_password: '', err_addressVi: '', err_addressEn: '', err_phoneNo: '',
             no_msg: ''
         }
-        this.listenEmitter()
-    }
-    listenEmitter() {
-        emitter.on('CLEAR_MODAL_DATA', () => {
-            this.setState({
-                fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 0, roleId: 'R1', showPassword: false,
-                err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_password: '', err_addressVi: '', err_addressEn: '', err_phoneNo: ''
-            })
-        })
     }
     componentDidMount() {
+    }
+    async componentDidUpdate(prevProps, prevState) {
+        let { user } = this.props
+        if (user && !_.isEmpty(user) && user !== prevProps.user && this.state === prevState) {
+            this.setState({
+                id: user.id, fNameVi: user.fNameVi, fNameEn: user.fNameEn, lNameVi: user.lNameVi, lNameEn: user.lNameEn, email: user.email, addressVi: user.addressVi, addressEn: user.addressEn, phoneNo: user.phoneNo, gender: user.gender, roleId: user.roleId
+            })
+        }
     }
     toogle = () => {
         this.props.toogleFromParent()
@@ -38,7 +37,7 @@ class ModalUser extends Component {
     }
     checkValidData = () => {
         let isValid = true
-        let { fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo } = this.state
+        let { fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo } = this.state
         if (!fNameVi) {
             this.setState({ err_fNameVi: 'Please enter your First name Vi' })
             isValid = false
@@ -59,10 +58,6 @@ class ModalUser extends Component {
             this.setState({ err_email: 'Please enter your Email' })
             isValid = false
         }
-        if (!password) {
-            this.setState({ err_password: 'Please enter your Password' })
-            isValid = false
-        }
         if (!addressVi) {
             this.setState({ err_addressVi: 'Please enter your Address Vi' })
             isValid = false
@@ -77,28 +72,23 @@ class ModalUser extends Component {
         }
         return isValid
     }
-    handleClickCreateButton = () => {
-        let { createNewUser } = this.props
+    handleClickUpdateButton = () => {
+        let { updateUser } = this.props
         this.setState({
-            err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_password: '', err_addressVi: '', err_addressEn: '', err_phoneNo: ''
+            err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_addressVi: '', err_addressEn: '', err_phoneNo: ''
         })
         let checkValid = this.checkValidData()
         if (checkValid) {
-            createNewUser(this.state)
+            updateUser(this.state)
         }
-    }
-    handleShowPassword = () => {
-        this.setState({
-            showPassword: !this.state.showPassword
-        })
     }
 
     render() {
         let { isOpen, msg } = this.props
-        let { no_msg, fNameVi, err_fNameVi, fNameEn, err_fNameEn, lNameVi, err_lNameVi, lNameEn, err_lNameEn, email, err_email, password, err_password, addressVi, err_addressVi, addressEn, err_addressEn, phoneNo, err_phoneNo, gender, roleId, showPassword } = this.state
+        let { no_msg, fNameVi, err_fNameVi, fNameEn, err_fNameEn, lNameVi, err_lNameVi, lNameEn, err_lNameEn, email, err_email, addressVi, err_addressVi, addressEn, err_addressEn, phoneNo, err_phoneNo, gender, roleId } = this.state
         return (
             <Modal backdrop={'static'} keyboard={false} size={'lg'} isOpen={isOpen} toggle={() => this.toogle()} className={'modal-user-container'}>
-                <ModalHeader toggle={() => this.toogle()}>Add New User</ModalHeader>
+                <ModalHeader toggle={() => this.toogle()}>Update User</ModalHeader>
                 <ModalBody>
                     <div className="card-body">
                         <div className='row'>
@@ -134,20 +124,12 @@ class ModalUser extends Component {
                             </div>
                         </div>
                         <div className='row'>
-                            <div className="col-6">
+                            <div className="col-12">
                                 <div className='form-group'>
                                     <label>Email</label>
                                     <input name='email' value={email} onChange={(e) => this.handleOnChangeInput(e)} type="text" className="form-control" placeholder="Enter Email" />
                                     <span className='text-danger'>{err_email}</span>
                                     <span className='text-danger'>{msg === '' ? no_msg : msg}</span>
-                                </div>
-                            </div>
-                            <div className="col-6">
-                                <div className='form-group'>
-                                    <label>Password</label>
-                                    <input name='password' value={password} onChange={(e) => this.handleOnChangeInput(e)} type={showPassword ? 'text' : 'password'} className="form-control" placeholder="Enter Password" />
-                                    <span onClick={() => this.handleShowPassword()}>{!showPassword ? <i className="custom-position-eye hover fas fa-eye"></i> : <i className="custom-position-eye hover fas fa-eye-slash"></i>}</span>
-                                    <span className='text-danger'>{err_password}</span>
                                 </div>
                             </div>
                         </div>
@@ -198,8 +180,8 @@ class ModalUser extends Component {
                     </div>
                 </ModalBody>
                 <ModalFooter>
-                    <Button onClick={() => this.handleClickCreateButton()} color="primary">
-                        Create
+                    <Button color="success" onClick={() => this.handleClickUpdateButton()}>
+                        Update
                     </Button>{' '}
                     <Button color="secondary" onClick={() => this.toogle()}>
                         Cancel
@@ -221,4 +203,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(ModalUser);
+export default connect(mapStateToProps, mapDispatchToProps)(ModalUpdateUser);

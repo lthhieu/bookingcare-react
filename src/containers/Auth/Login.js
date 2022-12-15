@@ -16,9 +16,11 @@ class Login extends Component {
             msg: ''
         }
     }
-    handleOnChangeInput = (e, field) => {
+    handleOnChangeInput = (e, key) => {
+        let copyState = { ...this.state }
+        copyState[key] = e.target.value
         this.setState({
-            [field]: e.target.value
+            ...copyState
         })
     }
     handleLogin = async () => {
@@ -29,13 +31,14 @@ class Login extends Component {
         let { email, password } = this.state
         try {
             let response = await services.handleLoginApi(email, password)
-            console.log(response)
-            if (response && response.errCode === 1) {
-                this.setState({
-                    msg: response.msg
-                })
-            } else if (response && response.errCode === 0) {
-                userLoginSuccess(response.data)
+            if (response && response.errCode) {
+                if (response.errCode === '1') {
+                    this.setState({
+                        msg: response.msg
+                    })
+                } else {
+                    userLoginSuccess(response.data)
+                }
             }
         } catch (e) {
             console.log('>>>', e.response)
@@ -46,9 +49,7 @@ class Login extends Component {
                     })
                 }
             }
-
         }
-
     }
     handleShowHidePassword = () => {
         let { isShow } = this.state
