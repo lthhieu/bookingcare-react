@@ -1,4 +1,29 @@
 {
+    "header-content-center": {
+        "title1": "Medical Specialties",
+        "sub-title1": "Find a doctor by Specialty",
+        "title2": "Health facilities",
+        "sub-title2": "Choose hospital clinic",
+        "title3": "Doctors",
+        "sub-title3": "Choose a good doctor",
+        "title4": "Medical examination packages",
+        "sub-title4": "General health check"
+    },
+    "header-content-right": {
+        "title": "Support"
+    },
+    "banner-up": {
+        "title": "medical background",
+        "sub-title": "Comprehensive health care"
+    },
+    "banner-down": {
+        "option1": "Specialist Examination",
+        "option2": "Remote examination",
+        "option3": "General examination",
+        "option4": "Medical test",
+        "option5": "Mental health",
+        "option6": "Dental Examination"
+    },
     "common": {
         "add": "Add",
         "edit": "Edit",

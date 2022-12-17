@@ -1,0 +1,50 @@
+.back-to-top {
+    position: fixed;
+    background: white;
+    width: 55px;
+    height: 55px;
+    padding: 13px;
+    border-radius: 50%;
+    color: #49bce2;
+    box-shadow: 1px 1px;
+
+    text-align: center;
+    font-size: larger;
+
+
+    &:hover {
+        background-color: #49bce2;
+        color: black;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 2s;
+    cursor: pointer;
+
+    @keyframes fadeIn {
+        0% {
+            opacity: 0;
+        }
+
+        100% {
+            opacity: 1;
+        }
+    }
+}
+
+.fade-out {
+    opacity: 0;
+    animation: fadeOut 2s;
+
+
+    @keyframes fadeOut {
+        0% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}
