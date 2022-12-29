@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Header from './Header';
-import BackToTop from './BackToTop';
+import Specialty from './Section/Specialty';
 
 class HomePage extends Component {
 
     render() {
         return (
             <div>
-                <BackToTop />
                 <Header />
+                <Specialty />
+                <div style={{ height: '300px' }}></div>
             </div>
         );
     }

@@ -1,0 +1,105 @@
+.section {
+    background: #f5f5f5;
+    border: 1px solid #f5f5f5;
+
+    .section-container {
+        margin: 0 100px;
+        display: flex;
+        flex-direction: column;
+
+        .section-header {
+            padding-top: 20px;
+            margin-bottom: 20px;
+
+            .header-title {
+                font-size: 24px;
+                font-weight: 600;
+            }
+
+            .header-button {
+                margin-right: 12px;
+                background: #ebebeb;
+                float: right;
+                padding: 6px 12px;
+                display: block;
+                border: none;
+                outline: none;
+                text-transform: uppercase;
+
+                &:hover {
+                    color: white;
+                    background: #f7d800;
+                }
+            }
+        }
+
+        .section-body {
+            margin-bottom: 20px;
+
+            .section-child {
+                .section-img {
+                    height: 150px;
+                    width: 255px;
+                    background: url('../../../assets/images/Specialty/co-xuong-khop.jpg') center no-repeat;
+                    background-size: cover;
+                    cursor: pointer;
+                    background-color: #eee;
+
+                }
+
+                .section-descript {
+                    cursor: pointer;
+
+                    &:hover {
+                        color: #56c7d5;
+                    }
+                }
+            }
+
+            .slick-prev {
+                background: white !important;
+                left: -15px !important;
+                z-index: 2 !important;
+                width: 44px !important;
+                height: 48px !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &::before {
+                    content: "\f060" !important;
+                }
+
+                &:hover {
+                    background: #ebebeb !important;
+                    color: black;
+                }
+
+            }
+
+            .slick-prev:before,
+            .slick-next:before {
+                font-family: FontAwesome !important;
+                color: #49bce2 !important;
+
+            }
+
+            .slick-next {
+                background: white !important;
+                right: -2px !important;
+                z-index: 2 !important;
+                width: 44px !important;
+                height: 48px !important;
+                border: 2px solid #d7d7d7 !important;
+
+                &::before {
+                    content: "\f061" !important;
+                }
+
+                &:hover {
+                    background: #ebebeb !important;
+                }
+            }
+        }
+    }
+
+
+}
