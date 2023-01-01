@@ -1,44 +1,44 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { FormattedMessage } from 'react-intl';
-import './Specialty.scss'
+import './Facility.scss'
 import Slider from "react-slick";
 
-class Specialty extends Component {
+class Facility extends Component {
 
     render() {
         return (
-            <div className='section section-specialty'>
+            <div className='section section-facility'>
                 <div className='section-container'>
                     <div className='section-header'>
-                        <span className='header-title'>Chuyên khoa phổ biến</span>
+                        <span className='header-title'>Cơ sở y tế nổi bật</span>
                         <button className='header-button'>xem them</button>
                     </div>
                     <div className='section-body'>
                         <Slider {...this.props.settings}>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 1</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 1</div>
                             </div>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 2</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 2</div>
                             </div>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 3</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 3</div>
                             </div>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 4</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 4</div>
                             </div>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 5</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 5</div>
                             </div>
                             <div className='section-child'>
-                                <div className='section-img section-specialty'></div>
-                                <div className='section-descript'>Co xuong khop 6</div>
+                                <div className='section-img section-facility'></div>
+                                <div className='section-descript'>Bệnh viện Chợ Rẫy 6</div>
                             </div>
                         </Slider>
                     </div>
@@ -62,4 +62,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Specialty);
+export default connect(mapStateToProps, mapDispatchToProps)(Facility);

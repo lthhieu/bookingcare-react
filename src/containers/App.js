@@ -48,23 +48,25 @@ class App extends Component {
         return (
             <Fragment>
                 <Router history={history}>
-                    <div className="main-container">
-                        {this.props.isLoggedIn && <Header />}
+                    <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
+                        <div className="main-container">
+                            {this.props.isLoggedIn && <Header />}
 
-                        <div className="content-container">
-                            <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
+                            <div className="content-container">
+
                                 <Switch>
                                     <Route path={path.HOME} exact component={(Home)} />
                                     <Route path={path.LOGIN} component={userIsNotAuthenticated(Login)} />
                                     <Route path={path.SYSTEM} component={userIsAuthenticated(System)} />
                                     <Route path={path.HOMEPAGE} component={(HomePage)} />
                                 </Switch>
-                            </CustomScrollbars>
-                        </div>
-                        {this.props.isLoggedIn && <Footer02 />}
 
-                        <ToastContainer />
-                    </div>
+                            </div>
+                            {this.props.isLoggedIn && <Footer02 />}
+
+                            <ToastContainer />
+                        </div>
+                    </CustomScrollbars>
                 </Router>
             </Fragment>
         )
