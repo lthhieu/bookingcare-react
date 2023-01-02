@@ -119,7 +119,7 @@ class UserManage extends Component {
                 </div>
                 {/* /.content-header */}
                 {/* Main content */}
-                <div className="content">
+                <div className="content cus-font">
                     <div className="container">
                         <div className="row">
                             <div className='col-12'>

@@ -5,19 +5,48 @@ import * as actions from "../../store/actions";
 import Navigator from '../../components/Navigator';
 import { adminMenu } from './menuApp';
 import './Header.scss';
-import adminLTELogo from '../../assets/images/adminLTE/AdminLTELogo.png'
+import bookingcareLogo from '../../assets/images/logo.svg'
+
+import * as utils from '../../utils'
 
 class Header extends Component {
-
+    handleChangeLanguage = (language) => {
+        this.props.changeLanguage(language)
+    }
     render() {
-        const { processLogout } = this.props;
+        const { processLogout, language } = this.props;
 
         return (
-            <nav className="main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
+            // <>
+            //     <div className='header-container'>
+            //         <div className='header-content'>
+            //             <div className='left-content left-content-admin'>
+            //                 <div className='logo'></div>
+            //             </div>
+            //             <div className='center-content center-content-admin cus-font'>
+            //                 <div className='child-content'>
+            //                     <div className='title title-admin'><b>
+            //                         <Navigator menus={adminMenu} />
+            //                     </b></div>
+            //                 </div>
+            //             </div>
+            //             <div className='right-content'>
+            //                 <div className="btn btn-logout" onClick={processLogout}>
+            //                     <i title={language === 'vi' ? 'Đăng xuất' : 'Log out'} className="fas fa-sign-out-alt cus-sign-out"></i>
+            //                 </div>
+            //                 <div className='flag'>
+            //                     <div title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+            //                     <div title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+            //                 </div>
+
+            //             </div>
+            //         </div>
+            //     </div>
+            // </>
+            <nav className="cus-font main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
                 <div className="container">
                     <a href="../../index3.html" className="navbar-brand">
-                        <img src={adminLTELogo} alt="AdminLTE Logo" className="brand-image img-circle elevation-3" style={{ opacity: '.8' }} />
-                        <span className="brand-text font-weight-light">AdminLTE 3</span>
+                        <img src={bookingcareLogo} className="brand-image" />
                     </a>
                     <button className="navbar-toggler order-1" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon" />
@@ -64,24 +93,22 @@ class Header extends Component {
                     </div>
                     {/* Right navbar links */}
                     <ul className="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                        <li className="nav-item">
-                            <div className="btn btn-logout" onClick={processLogout}>
-                                <i className="fas fa-sign-out-alt"></i>
+
+                        <li>
+                            <div className='flag'>
+                                <div title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                                <div title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
                             </div>
                         </li>
+                        <li className="nav-item">
+                            <div className="btn btn-logout" onClick={processLogout}>
+                                <i title={language === 'vi' ? 'Đăng xuất' : 'Log out'} className="fas fa-sign-out-alt cus-sign-out"></i>
+                            </div>
+                        </li>
+
                     </ul>
                 </div>
             </nav>
-
-            // <div className="header-container">
-            //     {/* thanh navigator */}
-            //     <div className="header-tabs-container">
-            //         <Navigator menus={adminMenu} />
-            //     </div>
-
-            //     {/* nút logout */}
-
-            // </div>
         );
     }
 
@@ -89,13 +116,15 @@ class Header extends Component {
 
 const mapStateToProps = state => {
     return {
-        isLoggedIn: state.user.isLoggedIn
+        isLoggedIn: state.user.isLoggedIn,
+        language: state.app.language
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
         processLogout: () => dispatch(actions.processLogout()),
+        changeLanguage: (data) => dispatch(actions.changeLanguage(data))
     };
 };
 

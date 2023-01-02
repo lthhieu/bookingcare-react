@@ -18,6 +18,11 @@
             display: flex;
             align-items: center;
 
+            &.left-content-admin {
+                width: 20%;
+                margin-left: 40px;
+            }
+
             i {
                 font-size: 25px;
                 color: gray;
@@ -31,6 +36,7 @@
                 width: 100%;
                 cursor: pointer;
                 margin: 10px;
+
             }
         }
 
@@ -42,10 +48,18 @@
             align-items: center;
             justify-content: space-between;
 
+            &.center-content-admin {
+                width: 65%;
+            }
+
             .child-content {
                 .title {
                     width: fit-content;
                     cursor: pointer;
+
+                    &.title-admin {
+                        margin-top: 15px;
+                    }
                 }
 
                 .sub-title {
@@ -61,6 +75,7 @@
             align-items: center;
             justify-content: flex-end;
             gap: 10px;
+            padding-right: 18px;
 
             .flag {
                 display: flex;
@@ -178,8 +193,13 @@
 
 
             .child-option {
-                width: 100px;
+                width: 120px;
                 text-align: center;
+
+                &:hover {
+                    color: #49bce2;
+                    cursor: pointer;
+                }
 
                 .child-icon {
                     background: white;
@@ -189,8 +209,6 @@
                     padding: 13px;
                     border-radius: 50%;
                     margin: auto;
-
-                    cursor: pointer;
 
                     i {
                         font-size: 30px;
@@ -202,10 +220,6 @@
                     font-size: 17px;
                     font-weight: 500;
 
-                    &:hover {
-                        cursor: pointer;
-                        color: #49bce2;
-                    }
                 }
             }
         }

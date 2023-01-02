@@ -45,8 +45,8 @@ class Header extends Component {
                     <div className='right-content'>
                         <div className='support'><i className="fas fa-question-circle">&nbsp;</i><FormattedMessage id="header-content-right.title" /></div>
                         <div className='flag'>
-                            <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
-                            <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                            <div title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                            <div title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
                         </div>
                     </div>
                 </div>
@@ -57,9 +57,7 @@ class Header extends Component {
                     <div className='sub-title'><b><FormattedMessage id="banner-up.sub-title" /></b></div>
                     <div className='search'>
                         <i className="fas fa-search"></i>
-                        {this.props.language === 'vi' ? <input type='text' placeholder='Tìm chuyên khoa khám bệnh' /> :
-                            <input type='text' placeholder='Find a medical specialty' />}
-
+                        <input type='text' placeholder={language === 'vi' ? 'Tìm chuyên khoa khám bệnh' : 'Find a medical specialty'} />
                     </div>
                 </div>
                 <div className='content-down'>

@@ -1,6 +1,6 @@
 .slick-prev {
     background: white !important;
-    left: -15px !important;
+    left: -7px !important;
     z-index: 2 !important;
     width: 44px !important;
     height: 48px !important;
@@ -26,7 +26,7 @@
 
 .slick-next {
     background: white !important;
-    right: -2px !important;
+    right: -11px !important;
     z-index: 2 !important;
     width: 44px !important;
     height: 48px !important;
@@ -97,11 +97,15 @@
             margin-bottom: 20px;
 
             .section-child {
-                margin-left: 1px;
+                padding-left: 10px;
+
+                &:hover {
+                    cursor: pointer;
+                    color: #56c7d5;
+                }
 
                 &.section-about {
                     width: 100%;
-
                 }
 
                 .left-cus {
@@ -195,8 +199,7 @@
 
                 .border-custom {
                     border: 1px solid #c9c1c1;
-                    margin-left: 0px;
-                    margin-right: 14px;
+                    margin-right: 5px;
                     padding: 12px;
                 }
 
@@ -230,16 +233,15 @@
                     height: 150px;
                     width: 255px;
                     background-size: cover;
-                    cursor: pointer;
                     background-color: #eee;
 
                 }
 
                 .section-descript {
-                    cursor: pointer;
+                    font-size: 15px;
 
-                    &:hover {
-                        color: #56c7d5;
+                    .sub-specialty-cus {
+                        color: black;
                     }
 
                     &.custom-descript {

@@ -14,13 +14,11 @@ import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authenticati
 import { path } from '../utils'
 
 import Home from '../routes/Home';
-// import Login from '../routes/Login';
 import Login from './Auth/Login';
-import Header from './Header/Header';
 import System from '../routes/System';
 import HomePage from './HomePage/HomePage'
 import CustomScrollbars from '../components/CustomScrollbars'
-import Footer02 from './Footer02';
+import Footer from './HomePage/Footer';
 
 
 
@@ -50,7 +48,6 @@ class App extends Component {
                 <Router history={history}>
                     <CustomScrollbars style={{ height: '100vh', width: '100%' }}>
                         <div className="main-container">
-                            {this.props.isLoggedIn && <Header />}
 
                             <div className="content-container">
 
@@ -62,7 +59,7 @@ class App extends Component {
                                 </Switch>
 
                             </div>
-                            {this.props.isLoggedIn && <Footer02 />}
+                            <Footer />
 
                             <ToastContainer />
                         </div>

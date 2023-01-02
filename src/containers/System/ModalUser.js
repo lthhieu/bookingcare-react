@@ -10,7 +10,7 @@ class ModalUser extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 0, roleId: 'R1', showPassword: false,
+            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 'M', roleId: 'R1', showPassword: false,
             err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_password: '', err_addressVi: '', err_addressEn: '', err_phoneNo: '',
             no_msg: ''
         }
@@ -19,7 +19,7 @@ class ModalUser extends Component {
     listenEmitter() {
         emitter.on('CLEAR_MODAL_DATA', () => {
             this.setState({
-                fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 0, roleId: 'R1', showPassword: false,
+                fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: 'M', roleId: 'R1', showPassword: false,
                 err_fNameVi: '', err_fNameEn: '', err_lNameVi: '', err_lNameEn: '', err_email: '', err_password: '', err_addressVi: '', err_addressEn: '', err_phoneNo: ''
             })
         })
@@ -127,7 +127,7 @@ class ModalUser extends Component {
                             </div>
                             <div className="col-6">
                                 <div className='form-group'>
-                                    <label>Last Name Vi</label>
+                                    <label>Last Name En</label>
                                     <input name='lNameEn' value={lNameEn} onChange={(e) => this.handleOnChangeInput(e)} type="text" className="form-control" placeholder="Enter Last Name Vi" />
                                     <span className='text-danger'>{err_lNameEn}</span>
                                 </div>
@@ -179,8 +179,9 @@ class ModalUser extends Component {
                                 <div className='form-group'>
                                     <label>Gender</label>
                                     <select name='gender' value={gender} onChange={(e) => this.handleOnChangeInput(e)} className="form-control">
-                                        <option value={0}>Male</option>
-                                        <option value={1}>Female</option>
+                                        <option value='M'>Male</option>
+                                        <option value='F'>Female</option>
+                                        <option value='O'>Other</option>
                                     </select>
                                 </div>
                             </div>

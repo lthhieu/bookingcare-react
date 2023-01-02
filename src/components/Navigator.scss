@@ -36,14 +36,14 @@
             display: none;
             // màu của menu list
             background-color: white;
-            box-shadow: 2px 2px 4px 0 black;
+            box-shadow: 2px 2px 4px 0 #ebebeb;
             // -webkit-box-shadow: 2px 2px 4px 0 blue;
             // color: blue;
             position: absolute;
             // padding: 0;
 
             .menu {
-                width: 10em;
+                width: 200px;
                 padding: 0 15px;
                 height: 2.2em;
                 line-height: 2em;
@@ -59,11 +59,11 @@
                     display: none;
                     // màu của sub menu list
                     background-color: white;
-                    box-shadow: 2px 2px 4px 0 black;
+                    box-shadow: 2px 2px 4px 0 #ebebeb;
                     // -webkit-box-shadow: 2px 2px 4px 0 blue;
                     position: absolute;
                     top: 0;
-                    left: 10em;
+                    left: 185px;
                     // padding: 0;
 
                     .sub-menu {

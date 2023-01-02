@@ -1,23 +1,53 @@
-// @import "../../styles/common.scss";
+.cus-font {
+    font-size: 15px;
+}
 
-// .header-container {
-//     z-index: 99;
-//     display: flex;
-//     justify-content: space-between;
-//     background-color: $colormain;
-//     color: $common-text-color;
-//     height: 40px;
-//     position: relative;
-//     .btn-logout {
-//         color: $common-text-color;
-//         line-height: 40px;
-//         height: 40px;
-//         padding: 0 10px;
-//         &:hover {
-//             background-color: darken($colormain, 5);
-//         }
-//         i {
-//             font-size: $base-size + 1px;
-//         }
-//     }
-// }
+.cus-sign-out {
+    font-size: larger;
+
+    &:hover {
+        color: #49bce2;
+    }
+}
+
+li {
+    // display: flex;
+    // align-items: center;
+
+    .flag {
+        display: flex;
+        gap: 10px;
+
+        .vi {
+            background: url('../../assets/images/vn.svg');
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .en {
+            background: url('../../assets/images/en.svg');
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            opacity: 0.5;
+
+            &:hover {
+                opacity: 0.8;
+            }
+
+            &.active {
+                opacity: 1;
+            }
+        }
+    }
+}

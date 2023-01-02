@@ -22,7 +22,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
 
@@ -34,7 +34,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
                             </div>
@@ -45,7 +45,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
                             </div>
@@ -56,7 +56,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
                             </div>
@@ -67,7 +67,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
                             </div>
@@ -78,7 +78,7 @@ class Doctor extends Component {
                                     </div>
                                     <div className='section-descript custom-descript'>
                                         <div>Phó giáo sư, Tiến sĩ, Bác sĩ cao cấp Lý Trần Hoàng Hiếu</div>
-                                        <div>Cơ Xương Khớp</div>
+                                        <div className='sub-specialty-cus'>Cơ Xương Khớp</div>
                                     </div>
                                 </div>
                             </div>

@@ -6,7 +6,7 @@ class Footer extends Component {
 
     render() {
         return (
-            <div className='footer-cus'>
+            <div className='footer-cus main-footer'>
                 <div className='footer-left'>
                     &copy; Clone Bookingcare.vn by Ly Tran Hoang Hieu
                 </div>

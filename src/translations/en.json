@@ -56,8 +56,7 @@
             "system-administrator": {
                 "header": "System Administrator",
                 "user-manage": "User manage",
-                "product-manage": "Package manage",
-                "register-package-group-or-account": "Register service package for group/account"
+                "user-redux": "User Redux manage"
             },
             "system-parameter": {
                 "header": "System-parameter"
@@ -91,7 +90,7 @@
             },
             "sure-delete-user": "Are you sure to delete this user?"
         },
-        "product-manage": {
+        "user-redux": {
             "fail-to-load-foprtype": "Fail to load packages list",
             "prid": "Package ID",
             "prname": "Package name",
@@ -117,29 +116,6 @@
             "save-decentralize-success": "Save decentralization successfully",
             "save-decentralize-fail": "Fail to save decentralization",
             "sure-delete-package": "Are you sure to delete this package?"
-        },
-        "register-package-group-or-acc": {
-            "assign-service-package-to-customer": "Assign service package to customer",
-            "package-name": "Package name",
-            "assign-type": "Assign type",
-            "cust-acc-group": "Customer/account group",
-            "effective-date": "Effective date",
-            "expiration-date": "Expiration date",
-            "assign": "Assign",
-            "manage-assign-groups": "Manage assign groups",
-            "group-cust-acc-name": "Group/customer account name",
-            "del-assign": "Del assign",
-            "fail-to-load-manage-assign-groups-list": "Fail to load manage assign groups list",
-            "invalid-selected": {
-                "currentfoProduct": "Invalid package",
-                "currentAssignType": "Invalid assign type",
-                "currentFoUser": "Invalid customer/account group"
-            },
-            "assign-service-package-to-customer-success": "Assign service package to customer successfully",
-            "assign-service-package-to-customer-fail": "Fail to assign service package to customer",
-            "remove-assign-success": "Unassign service package to customer successfully",
-            "remove-assign-fail": "Fail to unassign service package to customer",
-            "sure-delete-assign": "Are you sure to unassign service package to customer?"
         }
     }
 }
