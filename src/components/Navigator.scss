@@ -1,14 +1,16 @@
 // @import "../styles/common.scss";
 
 .navigator-menu {
-    // display: flex;
-    // margin: 0;
-    // padding: 0;
+    display: flex;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 0;
+    padding: 0;
 
-    // &.list-unstyled,
-    // .list-unstyled {
-    //     list-style-type: none;
-    // }
+    &.list-unstyled,
+    .list-unstyled {
+        list-style-type: none;
+    }
 
     .menu-group {
         &:hover {
@@ -22,6 +24,7 @@
         }
 
         .menu-group-name {
+            // margin-right: 30px;
             // line-height: 40px;
             // padding: 0 15px;
             // border-right: 1px solid blue;
@@ -43,16 +46,27 @@
             // padding: 0;
 
             .menu {
-                width: 200px;
+                width: 225px;
                 padding: 0 15px;
                 height: 2.2em;
                 line-height: 2em;
+
+                &.active {
+                    a {
+                        color: #49bce2;
+                    }
+
+                    background-color: #ededed;
+                    // font-weight: 500;
+
+                }
+
                 // text-transform: none;
 
-                // .menu-link {
-                //     text-decoration: none;
-                //     color: blue;
-                // }
+                .menu-link {
+                    text-decoration: none;
+                    color: black;
+                }
 
                 .sub-menu-list {
                     // mặc định không hiện sub menu list
@@ -86,10 +100,10 @@
                             display: block;
                         }
 
-                        &.active a {
-                            // font-weight: 500;
-                            color: red;
-                        }
+                        // &.active a {
+                        //     // font-weight: 500;
+                        //     color: red;
+                        // }
                     }
                 }
 

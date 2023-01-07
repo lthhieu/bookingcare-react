@@ -2,17 +2,21 @@
     font-size: 15px;
 }
 
-.cus-sign-out {
-    font-size: larger;
+.nav-item-cus {
+    margin: auto;
 
-    &:hover {
-        color: #49bce2;
+    .welcome {
+        margin-right: 10px;
     }
-}
 
-li {
-    // display: flex;
-    // align-items: center;
+
+    .cus-sign-out {
+        font-size: larger;
+
+        &:hover {
+            color: #49bce2;
+        }
+    }
 
     .flag {
         display: flex;

@@ -23,6 +23,7 @@ class UserManage extends Component {
     async componentDidMount() {
         await this.handleGetAllUsers()
     }
+
     handleGetAllUsers = async () => {
         let response = await services.getAllUsers('ALL')
         if (response && response.errCode === '0') {
@@ -110,7 +111,7 @@ class UserManage extends Component {
                 {/* Content Header (Page header) */}
                 <div className="content-header">
                     <div className="container">
-                        <div className="row mb-2">
+                        <div className="row">
                             <div className="col-sm-6">
                                 <h1 className="m-0">Manage Users</h1>
                             </div>{/* /.col */}

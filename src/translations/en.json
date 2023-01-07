@@ -10,7 +10,8 @@
         "sub-title4": "General health check"
     },
     "header-content-right": {
-        "title": "Support"
+        "title": "Support",
+        "title2": "Welcome"
     },
     "banner-up": {
         "title": "medical background",
@@ -24,32 +25,6 @@
         "option5": "Mental health",
         "option6": "Dental Examination"
     },
-    "common": {
-        "add": "Add",
-        "edit": "Edit",
-        "delete": "Delete",
-        "decentralize": "Decentralize",
-        "close": "Close",
-        "save": "Save",
-        "refresh": "Refresh",
-        "accept": "Accept",
-        "confirm": "Confirm",
-        "confirm-this-task": "Are you sure to process this task?",
-        "fail-to-load-data": "Fail to load data",
-        "unknown-error": "There was an error",
-        "internal-server-error": "Internal server error",
-        "bad-request": "Bad request",
-        "forbiden-request": "Invalid input data",
-        "fail-to-load-all-code": "Fail to load data from allcode",
-        "sum": "Sum",
-        "date-range-invalid": "Date range invalid"
-    },
-    "login": {
-        "login": "Login",
-        "username": "Username",
-        "password": "Password",
-        "userpass-wrong": "Invalid username or password!"
-    },
     "menu": {
         "system": {
             "header": "System",
@@ -61,61 +36,84 @@
             "system-parameter": {
                 "header": "System-parameter"
             }
+        },
+        "admin": {
+            "manage1": "Users",
+            "manage1-details": {
+                "detail1": "CRUD Users",
+                "detail2": "CRUD Users Redux",
+                "detail3": "Manage Admins",
+                "detail4": "Manage Doctors"
+            },
+            "manage2": "Specialties",
+            "manage2-details": {
+                "detail1": "Manage Specialties"
+            },
+            "manage3": "Clinics",
+            "manage3-details": {
+                "detail1": "Manage Clinics"
+            },
+            "manage4": "Handbooks",
+            "manage4-details": {
+                "detail1": "Manage Handbooks"
+            }
         }
     },
-    "system": {
-        "user-manage": {
-            "fail-to-load-fouser": "Fail to load system users list",
-            "user-id": "User ID",
-            "usertype": "User type",
-            "username": "Username",
-            "fullname": "Fullname",
-            "mobile": "Phone",
-            "email": "Email",
-            "status": "Status",
-            "add-user": "Add user",
-            "edit-user": "Edit user information",
-            "password": "Password",
-            "retype-password": "Retype password",
-            "add-user-success": "Add user successfully",
-            "edit-user-success": "Change user information successfully",
-            "add-user-fail": "Fail to add user",
-            "edit-user-fail": "Fail to change user information",
-            "del-user-success": "Delete user successfully",
-            "del-user-fail": "Fail to delete user",
-            "invalid-input": {
-                "username": "Please fill in username",
-                "fullname": "Please fill in fullname",
-                "password": "Please fill in password"
-            },
-            "sure-delete-user": "Are you sure to delete this user?"
-        },
+    "users": {
         "user-redux": {
-            "fail-to-load-foprtype": "Fail to load packages list",
-            "prid": "Package ID",
-            "prname": "Package name",
-            "prtype": "Package type",
-            "status": "Status",
-            "description": "Description",
-            "effective-date": "Effective date",
-            "expiration-date": "Expiration date",
-            "add-product": "Add package",
-            "add-product-success": "Add package successfully",
-            "add-product-fail": "Fail to add package",
-            "edit-product": "Edit package information",
-            "package-decentralize": "Package decentralize",
-            "edit-product-success": "Edit package information successfully",
-            "edit-product-fail": "Fail to edit package information",
-            "delete-product-success": "Delete package successfully",
-            "delete-product-fail": "Fail to delete package",
-            "invalid-input": {
-                "prid": "Please fill in package ID",
-                "prname": "Please fill in package name"
+            "title": {
+                "title1": "Add new",
+                "title2": "Users List"
             },
-            "fail-to-load-decentralize-info": "Fail to load decentralize info",
-            "save-decentralize-success": "Save decentralization successfully",
-            "save-decentralize-fail": "Fail to save decentralization",
-            "sure-delete-package": "Are you sure to delete this package?"
+            "body": {
+                "text1": "First name (Vietnamese)",
+                "text2": "First name (English)",
+                "text3": "Last name (Vietnamese)",
+                "text4": "Last name (English)",
+                "text5": "Email",
+                "text6": "Password",
+                "text7": "Address (Vietnamese)",
+                "text8": "Address (English)",
+                "text9": "Phone number",
+                "text10": "Gender",
+                "text11": "Role",
+                "text12": "Position",
+                "text13": "Avatar",
+                "text14": "Upload",
+                "error1": "Please enter your First name (Vietnamese)",
+                "error2": "Please enter your First name (English)",
+                "error3": "Please enter your Last name (Vietnamese)",
+                "error4": "Please enter your Last name (English)",
+                "error5": "Please enter your Email",
+                "error6": "Please enter your Password",
+                "error7": "Please enter your Address (Vietnamese)",
+                "error8": "Please enter your Address (English)",
+                "error9": "Please enter your Phone number",
+                "error10": "This email is already existed",
+                "tableheader1": "Email",
+                "tableheader2": "First name",
+                "tableheader3": "Last name",
+                "tableheader4": "Address",
+                "tableheader5": "Options"
+            },
+            "footer": {
+                "button1": "Save",
+                "button2": "Update"
+            },
+            "toast": {
+                "create": {
+                    "success": "Created Successfully",
+                    "error": "This email is already existed"
+                },
+                "delete": {
+                    "success": "Deleted Successfully",
+                    "error": "Delete Error"
+                },
+                "update": {
+                    "success": "Updated Successfully",
+                    "error": "This email is used"
+                }
+            }
         }
     }
 }

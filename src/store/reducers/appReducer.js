@@ -1,19 +1,9 @@
-import actionTypes from '../actions/actionTypes';
-
-const initContentOfConfirmModal = {
-    isOpen: false,
-    messageId: "",
-    handleFunc: null,
-    dataFunc: null
-}
+import actionTypes from '../actions/actionTypes'
 
 const initialState = {
     started: true,
     language: 'vi',
-    systemMenuPath: '/system/user-manage',
-    contentOfConfirmModal: {
-        ...initContentOfConfirmModal
-    }
+    systemMenuPath: '/system/manage-users'
 }
 
 const appReducer = (state = initialState, action) => {
@@ -23,16 +13,7 @@ const appReducer = (state = initialState, action) => {
                 ...state,
                 started: true
             }
-        case actionTypes.SET_CONTENT_OF_CONFIRM_MODAL:
-            return {
-                ...state,
-                contentOfConfirmModal: {
-                    ...state.contentOfConfirmModal,
-                    ...action.contentOfConfirmModal
-                }
-            }
         case actionTypes.CHANGE_LANGUAGE:
-            console.log(action)
             return {
                 ...state,
                 language: action.language

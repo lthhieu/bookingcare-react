@@ -8,14 +8,19 @@ import './Header.scss';
 import bookingcareLogo from '../../assets/images/logo.svg'
 
 import * as utils from '../../utils'
+import { FormattedMessage } from 'react-intl';
 
 class Header extends Component {
     handleChangeLanguage = (language) => {
         this.props.changeLanguage(language)
     }
-    render() {
-        const { processLogout, language } = this.props;
 
+    render() {
+        const { processLogout, language, userInfo } = this.props
+        let welcome = ''
+        if (userInfo && userInfo.fNameVi && userInfo.lNameVi && language === 'vi') { welcome = userInfo.fNameVi + '' + userInfo.lNameVi }
+        else if (userInfo && userInfo.fNameEn && userInfo.lNameEn && language === 'en') { welcome = userInfo.fNameEn + '' + userInfo.lNameEn }
+        else { welcome = '' }
         return (
             // <>
             //     <div className='header-container'>
@@ -43,7 +48,7 @@ class Header extends Component {
             //         </div>
             //     </div>
             // </>
-            <nav className="cus-font main-header navbar navbar-expand-md navbar-light navbar-white sticky-top">
+            <nav className="cus-font main-header navbar navbar-expand-md navbar-light navbar-white" >
                 <div className="container">
                     <a href="../../index3.html" className="navbar-brand">
                         <img src={bookingcareLogo} className="brand-image" />
@@ -58,49 +63,22 @@ class Header extends Component {
                                 <div className='nav-link'>
                                     <Navigator menus={adminMenu} />
                                 </div>
-
-                            </li>
-                            <li className="nav-item dropdown">
-                                <a href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="nav-link dropdown-toggle">Dropdown</a>
-                                <ul aria-labelledby="dropdownSubMenu1" className="dropdown-menu border-0 shadow">
-                                    <li><a href="#" className="dropdown-item">Some action </a></li>
-                                    <li><a href="#" className="dropdown-item">Some other action</a></li>
-                                    <li className="dropdown-divider" />
-                                    {/* Level two dropdown*/}
-                                    <li className="dropdown-submenu dropdown-hover">
-                                        <a id="dropdownSubMenu2" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="dropdown-item dropdown-toggle">Hover for action</a>
-                                        <ul aria-labelledby="dropdownSubMenu2" className="dropdown-menu border-0 shadow">
-                                            <li>
-                                                <a tabIndex={-1} href="#" className="dropdown-item">level 2</a>
-                                            </li>
-                                            {/* Level three dropdown*/}
-                                            <li className="dropdown-submenu">
-                                                <a id="dropdownSubMenu3" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" className="dropdown-item dropdown-toggle">level 2</a>
-                                                <ul aria-labelledby="dropdownSubMenu3" className="dropdown-menu border-0 shadow">
-                                                    <li><a href="#" className="dropdown-item">3rd level</a></li>
-                                                    <li><a href="#" className="dropdown-item">3rd level</a></li>
-                                                </ul>
-                                            </li>
-                                            {/* End Level three */}
-                                            <li><a href="#" className="dropdown-item">level 2</a></li>
-                                            <li><a href="#" className="dropdown-item">level 2</a></li>
-                                        </ul>
-                                    </li>
-                                    {/* End Level two */}
-                                </ul>
                             </li>
                         </ul>
                     </div>
                     {/* Right navbar links */}
                     <ul className="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-
-                        <li>
+                        <li className="nav-item-cus">
+                            <div className='welcome'><FormattedMessage id="header-content-right.title2" />, {welcome}!</div>
+                            {/* <div className='welcome'><FormattedMessage id="header-content-right.title2" />, {language === 'vi' ? userInfo.fNameVi + " " + userInfo.lNameVi : userInfo.fNameEn + '' + userInfo.lNameEn}!</div> */}
+                        </li>
+                        <li className="nav-item-cus">
                             <div className='flag'>
-                                <div title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
-                                <div title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                                <div data-toggle="tooltip" data-placement="bottom" title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                                <div data-toggle="tooltip" data-placement="bottom" title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
                             </div>
                         </li>
-                        <li className="nav-item">
+                        <li className="nav-item-cus">
                             <div className="btn btn-logout" onClick={processLogout}>
                                 <i title={language === 'vi' ? 'Đăng xuất' : 'Log out'} className="fas fa-sign-out-alt cus-sign-out"></i>
                             </div>
@@ -117,7 +95,8 @@ class Header extends Component {
 const mapStateToProps = state => {
     return {
         isLoggedIn: state.user.isLoggedIn,
-        language: state.app.language
+        language: state.app.language,
+        userInfo: state.user.userInfo
     };
 };
 

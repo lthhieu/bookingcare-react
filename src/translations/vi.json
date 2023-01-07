@@ -10,7 +10,8 @@
         "sub-title4": "Khám sức khỏe tổng quát"
     },
     "header-content-right": {
-        "title": "Hỗ trợ"
+        "title": "Hỗ trợ",
+        "title2": "Xin chào"
     },
     "banner-up": {
         "title": "Nền tảng y tế",
@@ -24,32 +25,6 @@
         "option5": "Sức khỏe tinh thần",
         "option6": "Khám Nha khoa"
     },
-    "common": {
-        "add": "Thêm",
-        "edit": "Sửa",
-        "delete": "Xóa",
-        "decentralize": "Phân quyền",
-        "close": "Đóng",
-        "save": "Lưu",
-        "refresh": "Refresh",
-        "accept": "Chấp nhận",
-        "confirm": "Xác nhận",
-        "confirm-this-task": "Bạn có chắc chắn thực hiện tác vụ này?",
-        "fail-to-load-data": "Không thể tải về dữ liệu",
-        "unknown-error": "Có lỗi xảy ra",
-        "internal-server-error": "Lỗi kết nối",
-        "bad-request": "Yêu cầu không hợp lệ",
-        "forbiden-request": "Thông tin truyền vào không hợp lệ",
-        "fail-to-load-all-code": "Không thể tải về dữ liệu allcode",
-        "sum": "Tổng",
-        "date-range-invalid": "Khoảng thời gian không hợp lệ"
-    },
-    "login": {
-        "login": "Đăng nhập",
-        "username": "Tên đăng nhập",
-        "password": "Mật khẩu",
-        "userpass-wrong": "Sai tên đăng nhập hoặc mật khẩu!"
-    },
     "menu": {
         "system": {
             "header": "Hệ thống",
@@ -61,61 +36,84 @@
             "system-parameter": {
                 "header": "Tham số hệ thống"
             }
+        },
+        "admin": {
+            "manage1": "Người dùng",
+            "manage1-details": {
+                "detail1": "CRUD Người dùng",
+                "detail2": "CRUD Người dùng Redux",
+                "detail3": "Quản lý Người quản trị",
+                "detail4": "Quản lỳ Bác sĩ"
+            },
+            "manage2": "Chuyên khoa",
+            "manage2-details": {
+                "detail1": "Quản lý Chuyên khoa"
+            },
+            "manage3": "Phòng khám",
+            "manage3-details": {
+                "detail1": "Quản lý Phòng khám"
+            },
+            "manage4": "Cẩm nang",
+            "manage4-details": {
+                "detail1": "Quản lý Cẩm nang"
+            }
         }
     },
-    "system": {
-        "user-manage": {
-            "fail-to-load-fouser": "Không thể tải về danh sách người dùng",
-            "user-id": "Mã người sử dụng",
-            "usertype": "Loại người dùng",
-            "username": "Tên người dùng",
-            "fullname": "Tên đầy đủ",
-            "mobile": "Số điện thoại",
-            "email": "Email",
-            "status": "Trạng thái",
-            "add-user": "Thêm người dùng",
-            "edit-user": "Sửa thông tin người dùng",
-            "password": "Mật khẩu",
-            "retype-password": "Nhập lại mật khẩu",
-            "add-user-success": "Thêm người dùng thành công",
-            "edit-user-success": "Thay đổi thông tin người dùng thành công",
-            "add-user-fail": "Thêm người dùng thất bại",
-            "edit-user-fail": "Thay đổi thông tin người dùng thất bại",
-            "del-user-success": "Xóa người dùng thành công",
-            "del-user-fail": "Xóa người dùng thất bại",
-            "invalid-input": {
-                "username": "Quý khách vui lòng nhập tên người dùng",
-                "fullname": "Quý khách vui lòng nhập tên đầy đủ",
-                "password": "Quý khách vui lòng nhập mật khẩu"
-            },
-            "sure-delete-user": "Bạn có chắc chắn muốn xóa người dùng này?"
-        },
+    "users": {
         "user-redux": {
-            "fail-to-load-foprtype": "Không thể tải về danh sách gói",
-            "prid": "Mã gói",
-            "prname": "Tên gói",
-            "prtype": "Loại gói",
-            "status": "Trạng thái",
-            "description": "Diễn giải",
-            "effective-date": "Ngày hiệu lực",
-            "expiration-date": "Ngày hết hiệu lực",
-            "add-product": "Thêm gói",
-            "add-product-success": "Thêm gói thành công",
-            "add-product-fail": "Thêm gói thất bại",
-            "edit-product": "Sửa thông tin gói",
-            "package-decentralize": "Phân quyền chức năng",
-            "edit-product-success": "Thay đổi thông tin gói thành công",
-            "edit-product-fail": "Thay đổi thông tin gói thất bại",
-            "delete-product-success": "Xóa gói thành công",
-            "delete-product-fail": "Xóa gói thất bại",
-            "invalid-input": {
-                "prid": "Quý khách vui lòng nhập mã gói",
-                "prname": "Quý khách vui lòng nhập tên gói"
+            "title": {
+                "title1": "Thêm mới",
+                "title2": "Danh sách Người dùng"
             },
-            "fail-to-load-decentralize-info": "Không thể tải về thông tin phân quyền chức năng",
-            "save-decentralize-success": "Lưu phân quyền chức năng thành công",
-            "save-decentralize-fail": "Lưu phân quyền chức năng thất bại",
-            "sure-delete-package": "Bạn có chắc chắn muốn xóa gói này?"
+            "body": {
+                "text1": "Họ (Tiếng Việt)",
+                "text2": "Họ (Tiếng Anh)",
+                "text3": "Tên (Tiếng Việt)",
+                "text4": "Tên (Tiếng Anh)",
+                "text5": "Email",
+                "text6": "Mật khẩu",
+                "text7": "Địa chỉ (Tiếng Việt)",
+                "text8": "Địa chỉ (Tiếng Anh)",
+                "text9": "Số điện thoại",
+                "text10": "Giới tính",
+                "text11": "Vai trò",
+                "text12": "Chức danh",
+                "text13": "Ảnh đại diện",
+                "text14": "Tải ảnh",
+                "error1": "Vui lòng nhập Họ (Tiếng Việt)",
+                "error2": "Vui lòng nhập Họ (Tiếng Anh)",
+                "error3": "Vui lòng nhập Tên (Tiếng Việt)",
+                "error4": "Vui lòng nhập Tên (Tiếng Anh)",
+                "error5": "Vui lòng nhập Email",
+                "error6": "Vui lòng nhập Mật khẩu",
+                "error7": "Vui lòng nhập Địa chỉ (Tiếng Việt)",
+                "error8": "Vui lòng nhập Địa chỉ (Tiếng Anh)",
+                "error9": "Vui lòng nhập Số điện thoại",
+                "error10": "Email này đã tồn tại",
+                "tableheader1": "Email",
+                "tableheader2": "Họ",
+                "tableheader3": "Tên",
+                "tableheader4": "Địa chỉ",
+                "tableheader5": "Tùy chọn"
+            },
+            "footer": {
+                "button1": "Lưu",
+                "button2": "Cập nhật"
+            },
+            "toast": {
+                "create": {
+                    "success": "Thêm thành công",
+                    "error": "Email này đã tồn tại"
+                },
+                "delete": {
+                    "success": "Xóa thành công",
+                    "error": "Xóa không thành công"
+                },
+                "update": {
+                    "success": "Cập nhật thành công",
+                    "error": "Email này đã được sử dụng"
+                }
+            }
         }
     }
 }

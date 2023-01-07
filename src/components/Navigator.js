@@ -23,7 +23,6 @@ class MenuGroup extends Component {
 }
 
 class Menu extends Component {
-
     render() {
         const { name, active, link, children, onClick, hasSubMenu, onLinkClick } = this.props;
         return (

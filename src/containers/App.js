@@ -3,11 +3,10 @@ import { connect } from 'react-redux';
 import { Route, Switch } from 'react-router-dom';
 import { ConnectedRouter as Router } from 'connected-react-router';
 import { history } from '../redux'
-// import { ToastContainer } from 'react-toastify';
+import './App.scss'
 
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-
 
 import { userIsAuthenticated, userIsNotAuthenticated } from '../hoc/authentication';
 
@@ -18,8 +17,6 @@ import Login from './Auth/Login';
 import System from '../routes/System';
 import HomePage from './HomePage/HomePage'
 import CustomScrollbars from '../components/CustomScrollbars'
-import Footer from './HomePage/Footer';
-
 
 
 class App extends Component {
@@ -59,7 +56,6 @@ class App extends Component {
                                 </Switch>
 
                             </div>
-                            <Footer />
 
                             <ToastContainer />
                         </div>
