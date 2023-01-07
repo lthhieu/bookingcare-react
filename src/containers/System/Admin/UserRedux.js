@@ -21,7 +21,7 @@ class UserRedux extends Component {
             roles: [],
             positions: [],
             previewImgURL: '',
-            isOpen: false,
+            isOpenImg: false,
 
             fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: '', roleId: '', positionId: '', image: '',
             fNameVi_ERR: '', fNameEn_ERR: '', lNameVi_ERR: '', lNameEn_ERR: '', email_ERR: '', password_ERR: '', addressVi_ERR: '', addressEn_ERR: '', phoneNo_ERR: '',
@@ -76,7 +76,7 @@ class UserRedux extends Component {
     }
     handleOpenImg = () => {
         if (this.state.previewImgURL === '') return
-        this.setState({ isOpen: true })
+        this.setState({ isOpenImg: true })
     }
     checkValidData = () => {
         let isValid = true
@@ -176,12 +176,12 @@ class UserRedux extends Component {
     }
 
     render() {
-        let { genders, roles, positions, previewImgURL, isOpen, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, gender, roleId, positionId, action, openModal } = this.state
+        let { genders, roles, positions, previewImgURL, isOpenImg, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, gender, roleId, positionId, action, openModal } = this.state
         let { language, isLoadingGender, isLoadingRole, isLoadingPosition } = this.props
         console.log(this.state.openModal)
         return (
             <div className="content-wrapper">
-                <Modal zIndex={1} backdrop='static' size='lg' isOpen={openModal}>
+                <Modal zIndex={1} keyboard={false} backdrop='static' size='lg' isOpen={openModal}>
                     <ModalHeader toggle={() => this.handleOpenModal()}>
                         {action === utils.CRUD.UPDATE ? <FormattedMessage id="users.user-redux.title.title3" /> : <FormattedMessage id="users.user-redux.title.title1" />}
                     </ModalHeader>
@@ -317,10 +317,10 @@ class UserRedux extends Component {
                         {/* /.row */}
                     </div>{/* /.container-fluid */}
                 </div>
-                {isOpen &&
+                {isOpenImg &&
                     <Lightbox
                         mainSrc={previewImgURL}
-                        onCloseRequest={() => this.setState({ isOpen: false })}
+                        onCloseRequest={() => this.setState({ isOpenImg: false })}
                     />
                 }
             </div>
