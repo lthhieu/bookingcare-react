@@ -63,7 +63,8 @@
         "user-redux": {
             "title": {
                 "title1": "Add new",
-                "title2": "Users List"
+                "title2": "Users List",
+                "title3": "Update"
             },
             "body": {
                 "text1": "First name (Vietnamese)",
@@ -98,7 +99,8 @@
             },
             "footer": {
                 "button1": "Save",
-                "button2": "Update"
+                "button2": "Update",
+                "button3": "Cancel"
             },
             "toast": {
                 "create": {

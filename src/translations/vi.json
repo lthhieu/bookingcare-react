@@ -63,7 +63,8 @@
         "user-redux": {
             "title": {
                 "title1": "Thêm mới",
-                "title2": "Danh sách Người dùng"
+                "title2": "Danh sách Người dùng",
+                "title3": "Cập nhật"
             },
             "body": {
                 "text1": "Họ (Tiếng Việt)",
@@ -98,7 +99,8 @@
             },
             "footer": {
                 "button1": "Lưu",
-                "button2": "Cập nhật"
+                "button2": "Cập nhật",
+                "button3": "Hủy"
             },
             "toast": {
                 "create": {

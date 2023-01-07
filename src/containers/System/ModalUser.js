@@ -97,7 +97,7 @@ class ModalUser extends Component {
         let { isOpen, msg } = this.props
         let { no_msg, fNameVi, err_fNameVi, fNameEn, err_fNameEn, lNameVi, err_lNameVi, lNameEn, err_lNameEn, email, err_email, password, err_password, addressVi, err_addressVi, addressEn, err_addressEn, phoneNo, err_phoneNo, gender, roleId, showPassword } = this.state
         return (
-            <Modal backdrop={'static'} keyboard={false} size={'lg'} isOpen={isOpen} toggle={() => this.toogle()} className={'modal-user-container'}>
+            <Modal isOpen={isOpen} toggle={() => this.toogle()} >
                 <ModalHeader toggle={() => this.toogle()}>Add New User</ModalHeader>
                 <ModalBody>
                     <div className="card-body">

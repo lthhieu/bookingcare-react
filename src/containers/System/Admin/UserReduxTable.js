@@ -33,6 +33,10 @@ class UserReduxTable extends Component {
         handleUpdateUserFromParents(data)
     }
 
+    handleOpenModal = () => {
+        this.props.handleOpenModalFromParents()
+    }
+
     render() {
         let { language, isFetchingUsers } = this.props
         let { users } = this.state
@@ -57,7 +61,7 @@ class UserReduxTable extends Component {
                                         <th><FormattedMessage id='users.user-redux.body.tableheader2' /></th>
                                         <th><FormattedMessage id='users.user-redux.body.tableheader3' /></th>
                                         <th><FormattedMessage id='users.user-redux.body.tableheader4' /></th>
-                                        <th className='text-center' colSpan={2}><FormattedMessage id='users.user-redux.body.tableheader5' /></th>
+                                        <th className='text-center' colSpan={2}><i onClick={() => this.handleOpenModal()} className='far fa-plus-square text-primary custom-fs-lg hover'></i></th>
                                     </tr>
                                     {users && users.length > 0 ?
                                         users.map((item, index) => {

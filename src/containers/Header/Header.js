@@ -48,7 +48,7 @@ class Header extends Component {
             //         </div>
             //     </div>
             // </>
-            <nav className="cus-font main-header navbar navbar-expand-md navbar-light navbar-white" >
+            <nav style={{ zIndex: '1' }} className="cus-font main-header navbar navbar-expand-md navbar-light navbar-white" >
                 <div className="container">
                     <a href="../../index3.html" className="navbar-brand">
                         <img src={bookingcareLogo} className="brand-image" />
