@@ -11,6 +11,7 @@ import 'react-image-lightbox/style.css';
 
 import * as utils from '../../../utils'
 
+
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 class UserRedux extends Component {
 
@@ -64,13 +65,14 @@ class UserRedux extends Component {
         }
     }
 
-    handleOnChangeAvatar = (e) => {
+    handleOnChangeAvatar = async (e) => {
         let img = e.target.files[0]
         if (img) {
+            let imgBase64 = await utils.CommonUtils.getBase64(img)
             let objectUrl = URL.createObjectURL(img)
             this.setState({
                 previewImgURL: objectUrl,
-                image: img
+                image: imgBase64
             })
         }
     }
@@ -134,7 +136,7 @@ class UserRedux extends Component {
             } else {
                 this.props.updateUserReduxStart({
                     id: update_id,
-                    fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, gender, roleId, positionId
+                    fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, gender, roleId, positionId, image
                 })
             }
         }
@@ -158,15 +160,22 @@ class UserRedux extends Component {
         })
     }
 
-    handleUpdateUserFromParents = (user) => {
+
+
+    handleUpdateUserFromParents = async (user) => {
+        let { id, fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, gender, roleId, positionId, image } = user
+        let imageBase64 = '', objectUrl = ''
+        imageBase64 = Buffer(image, 'base64').toString('ascii')
+        let blob = await utils.CommonUtils.b64toBlob(imageBase64);
+        objectUrl = URL.createObjectURL(blob)
+
         this.setState({
-            fNameVi: user.fNameVi, fNameEn: user.fNameEn, lNameVi: user.lNameVi, lNameEn: user.lNameEn, email: user.email, password: 'HARDCODE', addressVi: user.addressVi, addressEn: user.addressEn, phoneNo: user.phoneNo, image: '',
-            gender: user.gender,
-            roleId: user.roleId,
-            positionId: user.positionId,
+            fNameVi, fNameEn, lNameVi, lNameEn, email, password: 'HARDCODE', addressVi, addressEn, phoneNo, gender, roleId, positionId,
+            image: imageBase64,
             action: utils.CRUD.UPDATE,
-            update_id: user.id,
-            openModal: !this.state.openModal
+            update_id: id,
+            openModal: !this.state.openModal,
+            previewImgURL: objectUrl
         })
     }
 
@@ -178,7 +187,6 @@ class UserRedux extends Component {
     render() {
         let { genders, roles, positions, previewImgURL, isOpenImg, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, gender, roleId, positionId, action, openModal } = this.state
         let { language, isLoadingGender, isLoadingRole, isLoadingPosition } = this.props
-        console.log(this.state.openModal)
         return (
             <div className="content-wrapper">
                 <Modal zIndex={1} keyboard={false} backdrop='static' size='lg' isOpen={openModal}>

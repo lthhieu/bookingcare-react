@@ -90,9 +90,9 @@ export const addNewUserReduxStart = (data) => {
             })
             let res = await services.createNewUserRedux(data)
             if (res && res.errCode === '0') {
-                toast.success(<FormattedMessage id="users.user-redux.toast.create.success" />)
                 dispatch(addNewUserReduxSuccess())
                 dispatch(fetchUsersStart())
+                toast.success(<FormattedMessage id="users.user-redux.toast.create.success" />)
 
             } else {
                 if (res.msg === 'This email is already existed') {
