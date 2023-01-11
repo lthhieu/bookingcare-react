@@ -25,6 +25,10 @@
         "option5": "Sức khỏe tinh thần",
         "option6": "Khám Nha khoa"
     },
+    "sections": {
+        "doctors": "Bác sĩ nổi bật tuần qua",
+        "button": "Xem thêm"
+    },
     "menu": {
         "system": {
             "header": "Hệ thống",

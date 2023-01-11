@@ -10,16 +10,17 @@ import Doctor from './Section/Doctor';
 import Handbook from './Section/Handbook';
 import About from './Section/About';
 import Footer from './Footer';
+import { flatMap } from 'lodash';
 
 class HomePage extends Component {
 
 
     render() {
         let settings = {
-            infinite: true,
+            infinite: false,
             speed: 500,
             slidesToShow: 4,
-            slidesToScroll: 1
+            slidesToScroll: 2
         }
         return (
             <div>

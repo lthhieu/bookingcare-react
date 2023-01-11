@@ -4,9 +4,6 @@ import * as services from '../../services'
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
 
-// export const fetchGenderStart = () => ({
-//     type: actionTypes.FETCH_GENDER_START
-// })
 export const fetchGenderStart = () => {
     return async (dispatch, getState) => {
         try {

@@ -5,6 +5,26 @@ import { connect } from 'react-redux';
 import * as actions from '../../../store/actions'
 import * as utils from '../../../utils'
 import CircularProgress from '@mui/material/CircularProgress';
+
+import Tooltip from '@mui/material/Tooltip';
+
+
+import MarkdownIt from 'markdown-it';
+import MdEditor from 'react-markdown-editor-lite';
+// import style manually
+import 'react-markdown-editor-lite/lib/index.css';
+
+// Register plugins if required
+// MdEditor.use(YOUR_PLUGINS_HERE);
+
+// Initialize a markdown parser
+const mdParser = new MarkdownIt(/* Markdown-it options */);
+
+// Finish!
+function handleEditorChange({ html, text }) {
+    console.log('handleEditorChange', html, text);
+}
+
 class UserReduxTable extends Component {
 
     constructor(props) {
@@ -40,7 +60,7 @@ class UserReduxTable extends Component {
     render() {
         let { language, isFetchingUsers } = this.props
         let { users } = this.state
-        return (
+        return (<>
             <div className="row">
                 <div className='col-12'>
                     <div className='card'>
@@ -61,7 +81,11 @@ class UserReduxTable extends Component {
                                         <th><FormattedMessage id='users.user-redux.body.tableheader2' /></th>
                                         <th><FormattedMessage id='users.user-redux.body.tableheader3' /></th>
                                         <th><FormattedMessage id='users.user-redux.body.tableheader4' /></th>
-                                        <th className='text-center' colSpan={2}><i onClick={() => this.handleOpenModal()} className='far fa-plus-square text-primary custom-fs-lg hover'></i></th>
+                                        <th className='text-center' colSpan={2}>
+                                            <Tooltip placement='right' title={language === utils.LANGUAGES.VI ? 'Thêm mới' : 'Add new'}>
+                                                <i onClick={() => this.handleOpenModal()} className='far fa-plus-square text-primary custom-fs-lg hover'></i>
+                                            </Tooltip>
+                                        </th>
                                     </tr>
                                     {users && users.length > 0 ?
                                         users.map((item, index) => {
@@ -72,8 +96,16 @@ class UserReduxTable extends Component {
                                                     <td>{language === utils.LANGUAGES.VI ? item.fNameVi : item.fNameEn}</td>
                                                     <td>{language === utils.LANGUAGES.VI ? item.lNameVi : item.lNameEn}</td>
                                                     <td>{language === utils.LANGUAGES.VI ? item.addressVi : item.addressEn}</td>
-                                                    <td onClick={() => this.handleUpdateUser(item)} className='text-center'><i className="fas fa-pen text-success custom-fs-md hover"></i></td>
-                                                    <td onClick={() => this.handleDeleteUser(item.id)} className='text-center'><i className="fas fa-trash text-danger custom-fs-md hover"></i></td>
+                                                    <td onClick={() => this.handleUpdateUser(item)} className='text-center'>
+                                                        <Tooltip placement='left' title={language === utils.LANGUAGES.VI ? 'Cập nhật' : 'Update'}>
+                                                            <i className="fas fa-pen text-success custom-fs-md hover"></i>
+                                                        </Tooltip>
+                                                    </td>
+                                                    <td onClick={() => this.handleDeleteUser(item.id)} className='text-center'>
+                                                        <Tooltip placement='right' title={language === utils.LANGUAGES.VI ? 'Xóa' : 'Delete'}>
+                                                            <i className="fas fa-trash text-danger custom-fs-md hover"></i>
+                                                        </Tooltip>
+                                                    </td>
                                                 </tr>
                                             )
                                         })
@@ -84,6 +116,9 @@ class UserReduxTable extends Component {
                     </div>
                 </div>
             </div>
+
+            <MdEditor style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={handleEditorChange} />
+        </>
         )
     }
 

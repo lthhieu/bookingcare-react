@@ -24,7 +24,7 @@ class UserRedux extends Component {
             previewImgURL: '',
             isOpenImg: false,
 
-            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', gender: '', roleId: '', positionId: '', image: '',
+            fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', genderId: '', roleId: '', positionId: '', image: '',
             fNameVi_ERR: '', fNameEn_ERR: '', lNameVi_ERR: '', lNameEn_ERR: '', email_ERR: '', password_ERR: '', addressVi_ERR: '', addressEn_ERR: '', phoneNo_ERR: '',
 
             action: '',
@@ -46,19 +46,19 @@ class UserRedux extends Component {
         if (this.props.genders !== prevProps.genders || this.props.roles !== prevProps.roles || this.props.positions !== prevProps.positions) {
             this.setState({
                 genders: genders,
-                gender: genders && genders.length > 0 ? genders[0].key : '',
+                genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
                 roles: roles,
-                roleId: roles && roles.length > 0 ? roles[0].key : '',
+                roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
                 positions: positions,
-                positionId: positions && positions.length > 0 ? positions[0].key : ''
+                positionId: positions && positions.length > 0 ? positions[0].keyMap : ''
             })
         }
         if (prevProps.usersFromRedux !== usersFromRedux) {
             this.setState({
                 fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', image: '',
-                gender: genders && genders.length > 0 ? genders[0].key : '',
-                roleId: roles && roles.length > 0 ? roles[0].key : '',
-                positionId: positions && positions.length > 0 ? positions[0].key : '',
+                genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
+                roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
+                positionId: positions && positions.length > 0 ? positions[0].keyMap : '',
                 action: utils.CRUD.CREATE,
                 openModal: false
             })
@@ -127,16 +127,16 @@ class UserRedux extends Component {
         })
         let checkValid = this.checkValidData()
         if (checkValid) {
-            let { fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, gender, roleId, positionId, image, action, update_id } = this.state
+            let { fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image, action, update_id } = this.state
 
             if (action === utils.CRUD.CREATE) {
                 this.props.addNewUserReduxStart({
-                    fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, gender, roleId, positionId, image
+                    fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image
                 })
             } else {
                 this.props.updateUserReduxStart({
                     id: update_id,
-                    fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, gender, roleId, positionId, image
+                    fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image
                 })
             }
         }
@@ -154,23 +154,30 @@ class UserRedux extends Component {
         this.setState({
             fNameVi_ERR: '', fNameEn_ERR: '', lNameVi_ERR: '', lNameEn_ERR: '', email_ERR: '', password_ERR: '', addressVi_ERR: '', addressEn_ERR: '', phoneNo_ERR: '', fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', previewImgURL: '',
             action: utils.CRUD.CREATE,
-            gender: genders && genders.length > 0 ? genders[0].key : '',
-            roleId: roles && roles.length > 0 ? roles[0].key : '',
-            positionId: positions && positions.length > 0 ? positions[0].key : ''
+            genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
+            roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
+            positionId: positions && positions.length > 0 ? positions[0].keyMap : ''
         })
     }
 
 
 
-    handleUpdateUserFromParents = async (user) => {
-        let { id, fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, gender, roleId, positionId, image } = user
+    handleUpdateUserFromParents = (user) => {
+        let { id, fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image } = user
         let imageBase64 = '', objectUrl = ''
-        imageBase64 = Buffer(image, 'base64').toString('ascii')
-        let blob = await utils.CommonUtils.b64toBlob(imageBase64);
-        objectUrl = URL.createObjectURL(blob)
+        // no image
+        if (image.data.length === 0) {
+            imageBase64 = ''
+            objectUrl = ''
+        } else {
+            imageBase64 = Buffer(image, 'base64').toString('ascii')
+            let blob = utils.CommonUtils.b64toBlob(imageBase64)
+            objectUrl = URL.createObjectURL(blob)
+        }
+
 
         this.setState({
-            fNameVi, fNameEn, lNameVi, lNameEn, email, password: 'HARDCODE', addressVi, addressEn, phoneNo, gender, roleId, positionId,
+            fNameVi, fNameEn, lNameVi, lNameEn, email, password: 'HARDCODE', addressVi, addressEn, phoneNo, genderId, roleId, positionId,
             image: imageBase64,
             action: utils.CRUD.UPDATE,
             update_id: id,
@@ -185,7 +192,7 @@ class UserRedux extends Component {
     }
 
     render() {
-        let { genders, roles, positions, previewImgURL, isOpenImg, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, gender, roleId, positionId, action, openModal } = this.state
+        let { genders, roles, positions, previewImgURL, isOpenImg, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, genderId, roleId, positionId, action, openModal } = this.state
         let { language, isLoadingGender, isLoadingRole, isLoadingPosition } = this.props
         return (
             <div className="content-wrapper">
@@ -251,11 +258,11 @@ class UserRedux extends Component {
                             </div>
                             <div className="form-group col-md-4">
                                 <label><FormattedMessage id="users.user-redux.body.text10" /> {isLoadingGender === true ? <CircularProgress size="1rem" /> : ''}</label>
-                                <select value={gender} onChange={(e) => this.handleOnChangeInput(e, 'gender')} className="custom-select">
+                                <select value={genderId} onChange={(e) => this.handleOnChangeInput(e, 'genderId')} className="custom-select">
                                     {genders && genders.length > 0 ?
                                         genders.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.key}>{language === 'en' ? item.valueEn : item.valueVi}</option>
+                                                <option key={index} value={item.keyMap}>{language === 'en' ? item.valueEn : item.valueVi}</option>
                                             )
                                         }) : <option>Something went wrong..</option>}
                                 </select>
@@ -267,7 +274,7 @@ class UserRedux extends Component {
                                     {roles && roles.length > 0 ?
                                         roles.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.key}>{language === 'en' ? item.valueEn : item.valueVi}</option>
+                                                <option key={index} value={item.keyMap}>{language === 'en' ? item.valueEn : item.valueVi}</option>
                                             )
                                         }) : <option>Something went wrong..</option>}
                                 </select>
@@ -281,7 +288,7 @@ class UserRedux extends Component {
                                     {positions && positions.length > 0 ?
                                         positions.map((item, index) => {
                                             return (
-                                                <option key={index} value={item.key}>{language === 'en' ? item.valueEn : item.valueVi}</option>
+                                                <option key={index} value={item.keyMap}>{language === 'en' ? item.valueEn : item.valueVi}</option>
                                             )
                                         }) : <option>Something went wrong..</option>}
                                 </select>

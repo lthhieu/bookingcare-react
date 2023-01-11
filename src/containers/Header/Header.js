@@ -9,6 +9,7 @@ import bookingcareLogo from '../../assets/images/logo.svg'
 
 import * as utils from '../../utils'
 import { FormattedMessage } from 'react-intl';
+import Tooltip from '@mui/material/Tooltip';
 
 class Header extends Component {
     handleChangeLanguage = (language) => {
@@ -18,8 +19,8 @@ class Header extends Component {
     render() {
         const { processLogout, language, userInfo } = this.props
         let welcome = ''
-        if (userInfo && userInfo.fNameVi && userInfo.lNameVi && language === 'vi') { welcome = userInfo.fNameVi + '' + userInfo.lNameVi }
-        else if (userInfo && userInfo.fNameEn && userInfo.lNameEn && language === 'en') { welcome = userInfo.fNameEn + '' + userInfo.lNameEn }
+        if (userInfo && userInfo.fNameVi && userInfo.lNameVi && language === 'vi') { welcome = userInfo.fNameVi + ' ' + userInfo.lNameVi }
+        else if (userInfo && userInfo.fNameEn && userInfo.lNameEn && language === 'en') { welcome = userInfo.fNameEn + ' ' + userInfo.lNameEn }
         else { welcome = '' }
         return (
             // <>
@@ -74,14 +75,20 @@ class Header extends Component {
                         </li>
                         <li className="nav-item-cus">
                             <div className='flag'>
-                                <div data-toggle="tooltip" data-placement="bottom" title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
-                                <div data-toggle="tooltip" data-placement="bottom" title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                                <Tooltip title={language === utils.LANGUAGES.VI ? 'Tiếng Việt' : 'Vietnamese'}>
+                                    <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                                </Tooltip>
+                                <Tooltip title={language === utils.LANGUAGES.VI ? 'Tiếng Anh' : 'English'}>
+                                    <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                                </Tooltip>
                             </div>
                         </li>
                         <li className="nav-item-cus">
-                            <div className="btn btn-logout" onClick={processLogout}>
-                                <i title={language === 'vi' ? 'Đăng xuất' : 'Log out'} className="fas fa-sign-out-alt cus-sign-out"></i>
-                            </div>
+                            <Tooltip title={language === utils.LANGUAGES.VI ? 'Đăng xuất' : 'Log out'}>
+                                <div className="btn btn-logout" onClick={processLogout}>
+                                    <i className="fas fa-sign-out-alt cus-sign-out"></i>
+                                </div>
+                            </Tooltip>
                         </li>
 
                     </ul>

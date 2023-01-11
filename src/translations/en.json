@@ -14,7 +14,7 @@
         "title2": "Welcome"
     },
     "banner-up": {
-        "title": "medical background",
+        "title": "medical platform",
         "sub-title": "Comprehensive health care"
     },
     "banner-down": {
@@ -24,6 +24,10 @@
         "option4": "Medical test",
         "option5": "Mental health",
         "option6": "Dental Examination"
+    },
+    "sections": {
+        "doctors": "Outstanding Doctors of the week",
+        "button": "More Info"
     },
     "menu": {
         "system": {
