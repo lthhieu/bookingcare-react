@@ -47,7 +47,7 @@
                 "detail1": "CRUD Người dùng",
                 "detail2": "CRUD Người dùng Redux",
                 "detail3": "Quản lý Người quản trị",
-                "detail4": "Quản lỳ Bác sĩ"
+                "detail4": "Quản lý Bác sĩ"
             },
             "manage2": "Chuyên khoa",
             "manage2-details": {
@@ -118,6 +118,37 @@
                 "update": {
                     "success": "Cập nhật thành công",
                     "error": "Email này đã được sử dụng"
+                }
+            }
+        },
+        "manage-doctors": {
+            "title": {
+                "title1": "Thêm thông tin Bác sĩ"
+            },
+            "body": {
+                "label1": "Chọn Bác sĩ",
+                "label2": "Thông tin giới thiệu (Tiếng Việt)",
+                "label3": "Thông tin giới thiệu (Tiếng Anh)",
+                "label4": "Thông tin chi tiết (Tiếng Việt)",
+                "label5": "Thông tin chi tiết (Tiếng Anh)"
+            },
+            "footer": {
+                "button1": "Lưu",
+                "button2": "Cập nhật",
+                "button3": "Hủy"
+            },
+            "toast": {
+                "create": {
+                    "success": "",
+                    "error": ""
+                },
+                "delete": {
+                    "success": "",
+                    "error": ""
+                },
+                "update": {
+                    "success": "",
+                    "error": ""
                 }
             }
         }

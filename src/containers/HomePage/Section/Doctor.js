@@ -50,7 +50,7 @@ class Doctor extends Component {
                                         objectUrl = ''
                                     }
                                     let nameVi = `${item.positionData.valueVi}, ${item.fNameVi} ${item.lNameVi}`
-                                    let nameEn = `${item.positionData.valueEn}, ${item.lNameEn} ${item.fNameEn}`
+                                    let nameEn = `${item.positionData.valueEn}, ${item.fNameEn} ${item.lNameEn}`
                                     return (
                                         <div className='section-child' key={index}>
                                             <div className='border-custom'>

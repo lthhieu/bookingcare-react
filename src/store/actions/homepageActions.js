@@ -1,9 +1,6 @@
 import actionTypes from './actionTypes';
 import * as services from '../../services'
 
-import { toast } from 'react-toastify';
-import { FormattedMessage } from 'react-intl';
-
 export const loadDoctorsStart = () => {
     return async (dispatch, getState) => {
         try {

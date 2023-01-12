@@ -120,6 +120,37 @@
                     "error": "This email is used"
                 }
             }
+        },
+        "manage-doctors": {
+            "title": {
+                "title1": "Add Doctor's information"
+            },
+            "body": {
+                "label1": "Choose Doctor",
+                "label2": "Description (Vietnamese)",
+                "label3": "Description (English)",
+                "label4": "Detail (Vietnamese)",
+                "label5": "Detail (English)"
+            },
+            "footer": {
+                "button1": "Save",
+                "button2": "Update",
+                "button3": "Cancel"
+            },
+            "toast": {
+                "create": {
+                    "success": "",
+                    "error": ""
+                },
+                "delete": {
+                    "success": "",
+                    "error": ""
+                },
+                "update": {
+                    "success": "",
+                    "error": ""
+                }
+            }
         }
     }
 }

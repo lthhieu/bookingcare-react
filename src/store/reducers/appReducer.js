@@ -3,7 +3,7 @@ import actionTypes from '../actions/actionTypes'
 const initialState = {
     started: true,
     language: 'vi',
-    systemMenuPath: '/system/manage-users'
+    systemMenuPath: '/system/manage-users-redux'
 }
 
 const appReducer = (state = initialState, action) => {

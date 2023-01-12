@@ -3,13 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import './UserRedux.scss'
 import UserReduxTable from './UserReduxTable';
-import * as actions from '../../../store/actions'
-
+import * as actions from '../../../../store/actions'
+import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
 
-import * as utils from '../../../utils'
+import * as utils from '../../../../utils'
 
 
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
