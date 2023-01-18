@@ -1,4 +1,13 @@
 {
+    "login": {
+        "title": "Đăng nhập",
+        "msg": "Đăng nhập để bắt đầu",
+        "btn-login": "Đăng nhập",
+        "forgot-password": "Bạn đã quên mật khẩu?",
+        "error1": "Vui lòng điền Email và mật khẩu",
+        "error2": "Email không tồn tại trong hệ thống",
+        "error3": "Sai mật khẩu"
+    },
     "header-content-center": {
         "title1": "Chuyên khoa",
         "sub-title1": "Tìm bác sĩ theo chuyên khoa",
@@ -11,7 +20,9 @@
     },
     "header-content-right": {
         "title": "Hỗ trợ",
-        "title2": "Xin chào"
+        "title2": "Chào buổi sáng",
+        "title3": "Chào buổi chiều",
+        "title4": "Chào buổi tối"
     },
     "banner-up": {
         "title": "Nền tảng y tế",
@@ -45,22 +56,25 @@
             "manage1": "Người dùng",
             "manage1-details": {
                 "detail1": "CRUD Người dùng",
-                "detail2": "CRUD Người dùng Redux",
-                "detail3": "Quản lý Người quản trị",
-                "detail4": "Quản lý Bác sĩ"
+                "detail2": "QL Người dùng",
+                "detail3": "QL Người quản trị",
+                "detail4": "QL Bác sĩ"
             },
             "manage2": "Chuyên khoa",
             "manage2-details": {
-                "detail1": "Quản lý Chuyên khoa"
+                "detail1": "QL Chuyên khoa"
             },
             "manage3": "Phòng khám",
             "manage3-details": {
-                "detail1": "Quản lý Phòng khám"
+                "detail1": "QL Phòng khám"
             },
             "manage4": "Cẩm nang",
             "manage4-details": {
-                "detail1": "Quản lý Cẩm nang"
+                "detail1": "QL Cẩm nang"
             }
+        },
+        "doctor": {
+            "manage1": "QL kế hoạch"
         }
     },
     "users": {
@@ -139,17 +153,20 @@
             },
             "toast": {
                 "create": {
-                    "success": "",
-                    "error": ""
-                },
-                "delete": {
-                    "success": "",
-                    "error": ""
+                    "success": "Thêm thông tin thành công"
                 },
                 "update": {
-                    "success": "",
-                    "error": ""
-                }
+                    "success": "Cập nhật thông tin thành công"
+                },
+                "error": "Không thể thực thiện thao tác này"
+            }
+        },
+        "manage-schedule": {
+            "label1": "Chọn ngày",
+            "alerts": {
+                "alert1": "Vui lòng chọn bác sĩ..",
+                "alert2": "Vui lòng chọn ngày..",
+                "alert3": "Vui lòng chọn giờ.."
             }
         }
     }

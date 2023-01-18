@@ -1,9 +1,10 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { FormattedMessage } from 'react-intl';
-import './Header.scss'
+import React, { Component } from 'react'
+import { connect } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
 import * as utils from '../../utils'
 import * as actions from '../../store/actions'
+import './HomePage.scss'
+import { withRouter } from 'react-router'
 
 class Header extends Component {
     constructor(props) {
@@ -14,15 +15,23 @@ class Header extends Component {
     handleChangeLanguage = (language) => {
         this.props.changeLanguage(language)
     }
+    handleComeback = () => {
+        let { history } = this.props
+        if (history) {
+            history.push(utils.path.HOMEPAGE)
+        }
+
+    }
 
     render() {
-        let { language } = this.props
-        return (<>
+        let { language, nameEn, nameVi, showName } = this.props
+        // console.log(showName)
+        return (<>{this.props.home ?
             <div className='header-container'>
                 <div className='header-content'>
                     <div className='left-content'>
                         <i className="fas fa-bars"></i>
-                        <div className='logo'></div>
+                        <div onClick={() => this.handleComeback()} className='logo'></div>
                     </div>
                     <div className='center-content'>
                         <div className='child-content'>
@@ -50,47 +59,28 @@ class Header extends Component {
                         </div>
                     </div>
                 </div>
-            </div>
-            <div className='banner'>
-                <div className='content-up'>
-                    <div className='title'><FormattedMessage id="banner-up.title" /></div>
-                    <div className='sub-title'><b><FormattedMessage id="banner-up.sub-title" /></b></div>
-                    <div className='search'>
-                        <i className="fas fa-search"></i>
-                        <input type='text' placeholder={language === 'vi' ? 'Tìm chuyên khoa khám bệnh' : 'Find a medical specialty'} />
-                    </div>
-                </div>
-                <div className='content-down'>
-                    <div className='options'>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-hospital"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option1" /></b></div>
+            </div> : <>
+                <div className='header-container header-detail'>
+                    <div className='header-content header-content-detail'>
+                        <div className='left-content left-content-detail'>
+                            <i onClick={() => this.handleComeback()} className="fa-solid fa-arrow-left"></i>
+                            <div style={{ display: showName ? 'block' : 'none' }} className='doctor-name-header' >{language === utils.LANGUAGES.VI ? nameVi : nameEn}</div>
                         </div>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-phone-alt"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option2" /></b></div>
-                        </div>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-heartbeat"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option3" /></b></div>
-                        </div>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-flask"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option4" /></b></div>
-                        </div>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-user-md"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option5" /></b></div>
-                        </div>
-                        <div className='child-option'>
-                            <div className='child-icon'><i className="fas fa-tooth"></i></div>
-                            <div className='child-text'><b><FormattedMessage id="banner-down.option6" /></b></div>
+                        <div className='right-content right-content-detail'>
+                            <div className='support suport-detail'><i className="fas fa-question-circle">&nbsp;</i><FormattedMessage id="header-content-right.title" /></div>
+                            <div className='flag'>
+                                <div title='Việt Nam' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                                <div title='English' onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                            </div>
+                            <div className='bar'>
+                                <i className="fas fa-bars"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </>
-        );
+            </>
+        }</>
+        )
     }
 
 }
@@ -108,4 +98,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header))

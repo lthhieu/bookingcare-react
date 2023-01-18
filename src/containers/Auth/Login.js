@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import { push } from "connected-react-router";
 
 import * as actions from "../../store/actions";
+import * as utils from '../../utils'
+import './Login.scss'
+import Tooltip from '@mui/material/Tooltip';
 
-import './Login.scss';
-import * as services from '../../services';
 class Login extends Component {
     constructor(props) {
         super(props);
         this.state = {
             email: '',
             password: '',
-            isShow: false,
-            msg: ''
+            isShow: false
         }
     }
     handleOnChangeInput = (e, key) => {
@@ -23,33 +23,18 @@ class Login extends Component {
             ...copyState
         })
     }
-    handleLogin = async () => {
-        let { userLoginSuccess } = this.props
-        this.setState({
-            msg: ''
-        })
-        let { email, password } = this.state
-        try {
-            let response = await services.handleLoginApi(email, password)
-            if (response && response.errCode) {
-                if (response.errCode === '1') {
-                    this.setState({
-                        msg: response.msg
-                    })
-                } else {
-                    userLoginSuccess(response.data)
-                }
-            }
-        } catch (e) {
-            console.log('>>>', e.response)
-            if (e.response) {
-                if (e.response.data) {
-                    this.setState({
-                        msg: e.response.data.msg
-                    })
-                }
-            }
+    handlePressEnter = (e) => {
+        if (e.key === 'Enter') {
+            this.handleLogin()
         }
+    }
+    handleLogin = async () => {
+        let { loginStart } = this.props
+        let { email, password } = this.state
+        let data = {}
+        data.email = email
+        data.password = password
+        loginStart(data)
     }
     handleShowHidePassword = () => {
         let { isShow } = this.state
@@ -57,21 +42,35 @@ class Login extends Component {
             isShow: !isShow
         })
     }
+    handleChangeLanguage = (language) => {
+        this.props.changeLanguage(language)
+    }
 
     render() {
-        let { email, password, isShow, msg } = this.state
+        let { email, password, isShow } = this.state
+        let { language } = this.props
+        let msgPass = ''
+        if (language === utils.LANGUAGES.VI) {
+            if (isShow) {
+                msgPass = 'Ẩn mật khẩu'
+            }
+            else { msgPass = 'Hiện mật khẩu' }
+        } else {
+            if (isShow) {
+                msgPass = 'Hide password'
+            } else { msgPass = 'Show password' }
+        }
         return (
             <div className="hold-transition login-page login-background">
                 <div className="login-box">
                     <div className="card card-custom">
                         <div className="card-header text-center">
-                            <span className='h1'><b>Log in</b></span>
+                            <div className='h1'><b><FormattedMessage id="login.title" /></b></div>
                         </div>
                         <div className="card-body">
-                            {msg === '' ? <p className='login-box-msg'>Log in to start your session</p> :
-                                <p className='login-box-msg text-danger'>{msg}</p>}
+                            <p className='login-box-msg'><FormattedMessage id="login.msg" /></p>
                             <div className="input-group mb-3">
-                                <input onChange={(e) => this.handleOnChangeInput(e, "email")} value={email} type="text" className="form-control" placeholder="Email" />
+                                <input onKeyDown={(e) => this.handlePressEnter(e)} onChange={(e) => this.handleOnChangeInput(e, "email")} value={email} type="text" className="form-control" placeholder='Email' />
                                 <div className="input-group-append">
                                     <div className="input-group-text">
                                         <span className="fas fa-envelope" />
@@ -79,32 +78,39 @@ class Login extends Component {
                                 </div>
                             </div>
                             <div className="input-group mb-3">
-                                <input onChange={(e) => this.handleOnChangeInput(e, "password")} value={password} type={isShow ? 'text' : 'password'} className="form-control" placeholder="Password" />
+                                <input onKeyDown={(e) => this.handlePressEnter(e)} onChange={(e) => this.handleOnChangeInput(e, "password")} value={password} type={isShow ? 'text' : 'password'} className="form-control" placeholder={language === utils.LANGUAGES.VI ? 'Mật khẩu' : 'Password'} />
                                 <div className="input-group-append">
                                     <div className="input-group-text">
-                                        <span onClick={() => this.handleShowHidePassword()} className={isShow ? "fas fa-lock lock-custom" : "fas fa-lock-open lock-custom"} />
+                                        <Tooltip placement='right' title={msgPass}>
+                                            <span onClick={() => this.handleShowHidePassword()} className={isShow ? "fas fa-lock lock-custom" : "fas fa-lock-open lock-custom"} />
+                                        </Tooltip>
                                     </div>
                                 </div>
                             </div>
                             <div className="row">
                                 <div className="col-12">
-                                    <button onClick={() => this.handleLogin()} type="button" className="btn btn-block btn-custom">Log In</button>
+                                    <button onClick={() => this.handleLogin()} type="button" className="btn btn-block btn-custom"><FormattedMessage id="login.btn-login" /></button>
                                 </div>
                             </div>
-                            <div className='text-center my-1 mb-1'>
-                                <span>or</span>
-                            </div>
-                            <div className="social-auth-links text-center mt-2 mb-3">
+                            {/* <div className="social-auth-links text-center mt-2 mb-3">
                                 <a href="#" className="btn btn-block btn-primary">
                                     <i className="fab fa-facebook mr-2" /> Sign in using Facebook
                                 </a>
                                 <a href="#" className="btn btn-block btn-danger">
                                     <i className="fab fa-google-plus mr-2" /> Sign in using Google+
                                 </a>
+                            </div> */}
+                            <div className="cus-login-footer mb-1">
+                                <span className='forgot-password'><FormattedMessage id="login.forgot-password" /></span>
+                                <div className='flag'>
+                                    <Tooltip placement='left' title={language === utils.LANGUAGES.VI ? 'Tiếng Việt' : 'Vietnamese'}>
+                                        <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.VI)} className={language === utils.LANGUAGES.VI ? 'vi active' : 'vi'}></div>
+                                    </Tooltip>
+                                    <Tooltip placement='right' title={language === utils.LANGUAGES.VI ? 'Tiếng Anh' : 'English'}>
+                                        <div onClick={() => this.handleChangeLanguage(utils.LANGUAGES.EN)} className={language === utils.LANGUAGES.EN ? 'en active' : 'en'}></div>
+                                    </Tooltip>
+                                </div>
                             </div>
-                            <p className="mb-1 pwd-text-custom">
-                                <span>I forgot my password</span>
-                            </p>
                         </div>
                     </div>
                 </div>
@@ -115,14 +121,14 @@ class Login extends Component {
 
 const mapStateToProps = state => {
     return {
-        lang: state.app.language
+        language: state.app.language
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        userLoginFail: () => dispatch(actions.userLoginFail()),
-        userLoginSuccess: (userInfo) => dispatch(actions.userLoginSuccess(userInfo))
+        loginStart: (data) => dispatch(actions.loginStart(data)),
+        changeLanguage: (data) => dispatch(actions.changeLanguage(data))
     };
 };
 

@@ -2,7 +2,7 @@ import React, { Component, Fragment } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-
+import * as utils from '../utils'
 import './Navigator.scss';
 
 class MenuGroup extends Component {
@@ -23,8 +23,10 @@ class MenuGroup extends Component {
 }
 
 class Menu extends Component {
+
     render() {
-        const { name, active, link, children, onClick, hasSubMenu, onLinkClick } = this.props;
+
+        const { name, active, link, children, onClick, hasSubMenu, onLinkClick, language } = this.props;
         return (
             <li className={"menu" + (hasSubMenu ? " has-sub-menu" : "") + ("") + (active ? " active" : "")}>
                 {hasSubMenu ? (
@@ -234,6 +236,7 @@ class Navigator extends Component {
 
 const mapStateToProps = state => {
     return {
+        language: state.app.language
     };
 };
 

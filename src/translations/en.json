@@ -1,4 +1,13 @@
 {
+    "login": {
+        "title": "Log in",
+        "msg": "Log in to start your session",
+        "btn-login": "Log in",
+        "forgot-password": "You forgot my password?",
+        "error1": "Please provie your email and password",
+        "error2": "This email is not exist in system",
+        "error3": "This password is not correct"
+    },
     "header-content-center": {
         "title1": "Medical Specialties",
         "sub-title1": "Find a doctor by Specialty",
@@ -11,7 +20,9 @@
     },
     "header-content-right": {
         "title": "Support",
-        "title2": "Welcome"
+        "title2": "Good Morning",
+        "title3": "Good Afternoon",
+        "title4": "Good Evening"
     },
     "banner-up": {
         "title": "medical platform",
@@ -61,6 +72,9 @@
             "manage4-details": {
                 "detail1": "Manage Handbooks"
             }
+        },
+        "doctor": {
+            "manage1": "Manage Schedule"
         }
     },
     "users": {
@@ -139,17 +153,20 @@
             },
             "toast": {
                 "create": {
-                    "success": "",
-                    "error": ""
-                },
-                "delete": {
-                    "success": "",
-                    "error": ""
+                    "success": "Created Successfully"
                 },
                 "update": {
-                    "success": "",
-                    "error": ""
-                }
+                    "success": "Updated Successfully"
+                },
+                "error": "Cannot do this action"
+            }
+        },
+        "manage-schedule": {
+            "label1": "Choose date",
+            "alerts": {
+                "alert1": "Please choose a doctor..",
+                "alert2": "Please choose a date..",
+                "alert3": "Please choose a time.."
             }
         }
     }

@@ -1,0 +1,17 @@
+.manage-doctor-preview-image {
+    .preview {
+        margin-left: 10px;
+
+        &.exist {
+            box-shadow: 2px 2px 4px 0 #ebebeb;
+            cursor: pointer;
+        }
+
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
+        background: center no-repeat;
+        background-size: cover;
+
+    }
+}

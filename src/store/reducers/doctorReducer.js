@@ -3,7 +3,11 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isLoadingNameDoctors: false,
     nameDoctors: [],
-    isCreatingDoctorInfo: false
+    isCreatingOrUpdatingDoctorInfo: false,
+    isLoadingTime: false,
+    times: [],
+    isCreatingBulkSchedule: false,
+    success: false
 }
 
 const doctorReducer = (state = initialState, action) => {
@@ -25,18 +29,53 @@ const doctorReducer = (state = initialState, action) => {
             return {
                 ...state
             }
-        case actionTypes.CREATE_DOCTOR_INFO_START:
-            state.isCreatingDoctorInfo = true
+        case actionTypes.CREATE_OR_UPDATE_DOCTOR_INFO_START:
+            state.isCreatingOrUpdatingDoctorInfo = true
             return {
                 ...state
             }
-        case actionTypes.CREATE_DOCTOR_INFO_SUCCESS:
-            state.isCreatingDoctorInfo = false
+        case actionTypes.CREATE_OR_UPDATE_DOCTOR_INFO_SUCCESS:
+            state.isCreatingOrUpdatingDoctorInfo = false
             return {
                 ...state
             }
-        case actionTypes.CREATE_DOCTOR_INFO_FAILED:
-            state.isCreatingDoctorInfo = false
+        case actionTypes.CREATE_OR_UPDATE_DOCTOR_INFO_FAILED:
+            state.isCreatingOrUpdatingDoctorInfo = false
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TIME_START:
+            state.isLoadingTime = true
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TIME_SUCCESS:
+            state.times = action.data
+            state.isLoadingTime = false
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_TIME_FAILED:
+            state.times = []
+            state.isLoadingTime = false
+            return {
+                ...state
+            }
+        case actionTypes.CREATE_BULK_SCHEDULE_START:
+            state.isCreatingBulkSchedule = true
+            state.success = false
+            return {
+                ...state
+            }
+        case actionTypes.CREATE_BULK_SCHEDULE_SUCCESS:
+            state.isCreatingBulkSchedule = false
+            state.success = true
+            return {
+                ...state
+            }
+        case actionTypes.CREATE_BULK_SCHEDULE_FAILED:
+            state.isCreatingBulkSchedule = false
+            state.success = false
             return {
                 ...state
             }

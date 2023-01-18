@@ -3,12 +3,13 @@ import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
 import { Button } from 'reactstrap';
 import Select from 'react-select';
-
+import './Doctor.scss'
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
 import 'react-markdown-editor-lite/lib/index.css';
 import * as actions from '../../../../store/actions'
 import * as utils from '../../../../utils'
+import Lightbox from 'react-image-lightbox';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -24,7 +25,10 @@ class Doctors extends Component {
             contentHtmlEn: '',
             contentMarkDownEn: '',
             descriptionEn: '',
-            selectedDoctor: null
+            selectedDoctor: null,
+            saveData: true,
+            previewImgURL: '',
+            isOpenImg: false
         }
     }
     componentDidMount() {
@@ -48,22 +52,46 @@ class Doctors extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        let { nameDoctors, language, isCreatingDoctorInfo } = this.props
+        let { nameDoctors, language, isCreatingOrUpdatingDoctorInfo, doctorDetailInfo } = this.props
         if (prevProps.nameDoctors !== nameDoctors || prevProps.language !== language) {
             let nameOptions = this.handleCreateNameDoctorOptions(nameDoctors)
             this.setState({
                 nameDoctors: nameOptions,
-                selectedDoctor: null
-            })
-        }
-        if (prevProps.isCreatingDoctorInfo !== isCreatingDoctorInfo && prevProps.isCreatingDoctorInfo === true && isCreatingDoctorInfo === false) {
-            this.setState({
+                selectedDoctor: null,
                 contentMarkDownVi: '',
                 descriptionVi: '',
                 contentMarkDownEn: '',
                 descriptionEn: '',
-                selectedDoctor: null
+                saveData: true
             })
+        }
+        if (prevProps.isCreatingOrUpdatingDoctorInfo !== isCreatingOrUpdatingDoctorInfo && prevProps.isCreatingOrUpdatingDoctorInfo === true && isCreatingOrUpdatingDoctorInfo === false) {
+            this.handleCancel()
+        }
+        if (prevProps.doctorDetailInfo !== doctorDetailInfo) {
+            if (doctorDetailInfo.userPostData) {
+                let imageBase64 = '', objectUrl = ''
+
+                if (doctorDetailInfo.image && doctorDetailInfo.image.data.length === 0) {
+                    imageBase64 = ''
+                    objectUrl = ''
+                } else {
+                    imageBase64 = Buffer.from(doctorDetailInfo.image, 'base64').toString('ascii')
+                    let blob = utils.CommonUtils.b64toBlob(imageBase64)
+                    objectUrl = URL.createObjectURL(blob)
+                }
+                let detail = doctorDetailInfo.userPostData
+                this.setState({
+                    contentHtmlVi: detail.contentHtmlVi,
+                    contentMarkDownVi: detail.contentMarkDownVi,
+                    descriptionVi: detail.descriptionVi,
+                    contentHtmlEn: detail.contentHtmlEn,
+                    contentMarkDownEn: detail.contentMarkDownEn,
+                    descriptionEn: detail.descriptionEn,
+                    saveData: false,
+                    previewImgURL: objectUrl
+                }, () => console.log(this.state.previewImgURL))
+            }
         }
     }
     // Finish!
@@ -80,14 +108,23 @@ class Doctors extends Component {
         })
     }
     handleChange = (selectedDoctor) => {
-        this.setState({ selectedDoctor })
+        this.setState({
+            selectedDoctor,
+            contentMarkDownVi: '',
+            descriptionVi: '',
+            contentMarkDownEn: '',
+            descriptionEn: '',
+            saveData: true
+        })
+        this.props.fetchDoctorDetailInfoByIDStart(selectedDoctor.value)
     };
 
-    handleCreateDoctorInfo = () => {
-        let { contentHtmlVi, contentMarkDownVi, descriptionVi, contentHtmlEn, contentMarkDownEn, descriptionEn, selectedDoctor } = this.state
-        this.props.createDoctorInfoStart({
+    handleCreateOrUpdateDoctorInfo = () => {
+        let { contentHtmlVi, contentMarkDownVi, descriptionVi, contentHtmlEn, contentMarkDownEn, descriptionEn, selectedDoctor, saveData } = this.state
+        this.props.createOrUpdateDoctorInfoStart({
             contentHtmlVi, contentMarkDownVi, descriptionVi, contentHtmlEn, contentMarkDownEn, descriptionEn,
-            doctorId: selectedDoctor.value
+            doctorId: selectedDoctor.value,
+            action: saveData ? utils.CRUD.CREATE : utils.CRUD.UPDATE
         })
     }
     handleChangeIntroduction = (e, id) => {
@@ -97,11 +134,32 @@ class Doctors extends Component {
             ...copyState
         })
     }
+    handleOpenImg = () => {
+        if (this.state.previewImgURL === '') return
+        this.setState({ isOpenImg: true })
+    }
+    handleCancel = () => {
+        this.setState({
+            contentMarkDownVi: '',
+            descriptionVi: '',
+            contentMarkDownEn: '',
+            descriptionEn: '',
+            selectedDoctor: null,
+            previewImgURL: '', saveData: true
+        })
+    }
 
     render() {
-        let { selectedDoctor, descriptionVi, descriptionEn, nameDoctors, contentMarkDownVi, contentMarkDownEn } = this.state
-        let { language } = this.props
+        let { isOpenImg, selectedDoctor, descriptionVi, descriptionEn, nameDoctors, contentMarkDownVi, contentMarkDownEn, saveData, previewImgURL } = this.state
+        let { language, doctorDetailInfo } = this.props
+        console.log(doctorDetailInfo)
         return (<>
+            {isOpenImg &&
+                <Lightbox
+                    mainSrc={previewImgURL}
+                    onCloseRequest={() => this.setState({ isOpenImg: false })}
+                />
+            }
             <div className='content-wrapper'>
                 <div className="content-header">
                     <div className="container">
@@ -136,6 +194,9 @@ class Doctors extends Component {
                                                     options={nameDoctors}
                                                 />
                                             </div>
+                                            <div className='col-6 manage-doctor-preview-image'>
+                                                <div onClick={() => this.handleOpenImg()} style={{ backgroundImage: `url(${previewImgURL})` }} className={previewImgURL !== '' ? 'preview exist' : 'preview'}></div>
+                                            </div>
                                         </div>
                                         <div className='row mb-3'>
                                             <div className='col-6 form-group'>
@@ -163,10 +224,10 @@ class Doctors extends Component {
                                         </div>
                                     </div>
                                     <div className='card-footer'>
-                                        <Button onClick={() => this.handleCreateDoctorInfo()} color='primary'>
-                                            <FormattedMessage id='users.manage-doctors.footer.button1' />
+                                        <Button onClick={() => this.handleCreateOrUpdateDoctorInfo()} color={saveData ? 'primary' : 'success'}>
+                                            {saveData ? <FormattedMessage id='users.manage-doctors.footer.button1' /> : <FormattedMessage id='users.manage-doctors.footer.button2' />}
                                         </Button>&ensp;
-                                        <Button color="secondary" >
+                                        <Button onClick={() => this.handleCancel()} color="secondary" >
                                             <FormattedMessage id='users.manage-doctors.footer.button3' />
                                         </Button>
                                     </div>
@@ -186,14 +247,16 @@ const mapStateToProps = state => {
     return {
         language: state.app.language,
         nameDoctors: state.doctor.nameDoctors,
-        isCreatingDoctorInfo: state.doctor.isCreatingDoctorInfo
+        isCreatingOrUpdatingDoctorInfo: state.doctor.isCreatingOrUpdatingDoctorInfo,
+        doctorDetailInfo: state.homepage.doctorDetailInfo
     }
 }
 
 const mapDispatchToProps = dispatch => {
     return {
         getNameDoctorsStart: () => dispatch(actions.getNameDoctorsStart()),
-        createDoctorInfoStart: (data) => dispatch(actions.createDoctorInfoStart(data))
+        createOrUpdateDoctorInfoStart: (data) => dispatch(actions.createOrUpdateDoctorInfoStart(data)),
+        fetchDoctorDetailInfoByIDStart: (id) => dispatch(actions.fetchDoctorDetailInfoByIDStart(id))
     }
 }
 

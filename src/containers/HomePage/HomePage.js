@@ -10,7 +10,7 @@ import Doctor from './Section/Doctor';
 import Handbook from './Section/Handbook';
 import About from './Section/About';
 import Footer from './Footer';
-import { flatMap } from 'lodash';
+import Banner from './Banner';
 
 class HomePage extends Component {
 
@@ -24,7 +24,8 @@ class HomePage extends Component {
         }
         return (
             <div>
-                <Header />
+                <Header home={true} />
+                <Banner />
                 <Specialty settings={settings} />
                 <Facility settings={settings} />
                 <Doctor settings={settings} />

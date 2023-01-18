@@ -1,6 +1,56 @@
 .login-background {
     background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
 
+    .cus-login-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .forgot-password {
+            &:hover {
+                color: #e94235;
+                cursor: pointer;
+            }
+        }
+
+        .flag {
+            display: flex;
+            gap: 10px;
+
+            .vi {
+                background: url('../../assets/images/vn.svg');
+                height: 40px;
+                width: 40px;
+                cursor: pointer;
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+
+            .en {
+                background: url('../../assets/images/en.svg');
+                height: 40px;
+                width: 40px;
+                cursor: pointer;
+                opacity: 0.5;
+
+                &:hover {
+                    opacity: 0.8;
+                }
+
+                &.active {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
     .card-custom {
         border-top: 3px solid pink;
         border-radius: 1em;
@@ -8,18 +58,14 @@
         .btn-custom {
             background: linear-gradient(135deg, rgba(34, 193, 195, 1) 0%, rgba(253, 187, 45, 1) 100%);
             color: white;
+
+            &:hover {
+                font-size: larger;
+            }
         }
 
         .lock-custom {
             cursor: pointer;
-        }
-
-        .pwd-text-custom {
-            cursor: pointer;
-
-            &:hover {
-                color: #e94235;
-            }
         }
     }
 }

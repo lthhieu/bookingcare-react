@@ -170,7 +170,7 @@ class UserRedux extends Component {
             imageBase64 = ''
             objectUrl = ''
         } else {
-            imageBase64 = Buffer(image, 'base64').toString('ascii')
+            imageBase64 = Buffer.from(image, 'base64').toString('ascii')
             let blob = utils.CommonUtils.b64toBlob(imageBase64)
             objectUrl = URL.createObjectURL(blob)
         }
