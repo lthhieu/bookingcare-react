@@ -4,13 +4,13 @@ import { toast } from 'react-toastify';
 import * as utils from '../../utils'
 import { FormattedMessage } from 'react-intl';
 
-export const getNameDoctorsStart = () => {
+export const getNameDoctorsStart = (id) => {
     return async (dispatch, getState) => {
         try {
             dispatch({
                 type: actionTypes.GET_DOCTOR_NAME_START
             })
-            let res = await services.getNameAllDoctorsService()
+            let res = await services.getNameAllDoctorsService(id)
             if (res && res.errCode === '0') {
                 dispatch(getNameDoctorsSuccess(res.data))
             } else {
@@ -65,7 +65,7 @@ export const fetchTimeStart = () => {
             dispatch({
                 type: actionTypes.FETCH_TIME_START
             })
-            let res = await services.getAllCode('time')
+            let res = await services.getAllCodeService('time')
             if (res && res.errCode === '0') {
                 dispatch(fetchTimeSuccess(res.data))
             } else {
@@ -110,4 +110,136 @@ export const createBulkScheduleSuccess = () => ({
 })
 export const createBulkScheduleFailed = () => ({
     type: actionTypes.CREATE_BULK_SCHEDULE_FAILED
+})
+
+export const fetchScheduleDoctorStart = (doctorId, date) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_SCHEDULE_DOCTOR_START
+            })
+            let res = await services.fetchDoctorScheduleService(doctorId, date)
+            if (res && res.errCode === '0') {
+                dispatch(fetchScheduleDoctorSuccess(res.data))
+            } else {
+                dispatch(fetchScheduleDoctorFailed())
+            }
+        } catch (e) {
+            console.log('fetchScheduleDoctorStart error:', e)
+        }
+    }
+}
+export const fetchScheduleDoctorSuccess = (data) => ({
+    type: actionTypes.FETCH_SCHEDULE_DOCTOR_SUCCESS,
+    data
+})
+export const fetchScheduleDoctorFailed = () => ({
+    type: actionTypes.FETCH_SCHEDULE_DOCTOR_FAILED
+})
+
+export const fetchDoctorInfoFromDoctorInfosTableStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_DOCTOR_INFO_FROM_DOCTOR_INFOS_TABLE_START
+            })
+            let resPrice = await services.getAllCodeService('price')
+            let resPayment = await services.getAllCodeService('payment')
+            let resProvince = await services.getAllCodeService('province')
+            if (resPrice && resPrice.errCode === '0' && resPayment && resPayment.errCode === '0' && resProvince && resProvince.errCode === '0') {
+                let data = {
+                    prices: resPrice.data,
+                    payments: resPayment.data,
+                    provinces: resProvince.data,
+                }
+                dispatch(fetchDoctorInfoFromDoctorInfosTableSuccess(data))
+            } else {
+                dispatch(fetchDoctorInfoFromDoctorInfosTableFailed())
+            }
+        } catch (e) {
+            console.log('fetchDoctorInfoFromDoctorInfosTableStart error:', e)
+        }
+    }
+}
+export const fetchDoctorInfoFromDoctorInfosTableSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_INFO_FROM_DOCTOR_INFOS_TABLE_SUCCESS,
+    data
+})
+export const fetchDoctorInfoFromDoctorInfosTableFailed = () => ({
+    type: actionTypes.FETCH_DOCTOR_INFO_FROM_DOCTOR_INFOS_TABLE_FAILED
+})
+
+export const fetchDoctorInfoStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_DOCTOR_INFO_START
+            })
+            let res = await services.fetchDoctorInfoService(doctorId)
+            if (res && res.errCode === '0') {
+                dispatch(fetchDoctorInfoSuccess(res.data))
+            } else {
+                dispatch(fetchDoctorInfoFailed())
+            }
+        } catch (e) {
+            console.log('fetchDoctorInfoStart error:', e)
+        }
+    }
+}
+export const fetchDoctorInfoSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_INFO_SUCCESS,
+    data
+})
+export const fetchDoctorInfoFailed = () => ({
+    type: actionTypes.FETCH_DOCTOR_INFO_FAILED
+})
+
+export const fetchDoctorDetailStart = (doctorId) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_DOCTOR_DETAIL_START
+            })
+            let res = await services.fetchDoctorDetailService(doctorId)
+            if (res && res.errCode === '0') {
+                dispatch(fetchDoctorDetailSuccess(res.data))
+            } else {
+                dispatch(fetchDoctorDetailFailed())
+            }
+        } catch (e) {
+            console.log('fetchDoctorDetailStart error:', e)
+        }
+    }
+}
+export const fetchDoctorDetailSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_DETAIL_SUCCESS,
+    data
+})
+export const fetchDoctorDetailFailed = () => ({
+    type: actionTypes.FETCH_DOCTOR_DETAIL_FAILED
+})
+
+export const fetchDoctorProfileStart = (id) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_DOCTOR_PROFILE_START
+            })
+            let res = await services.fetchDoctorProfileService(id)
+            if (res && res.errCode === '0') {
+                dispatch(fetchDoctorProfileSuccess(res.data))
+            } else {
+                dispatch(fetchDoctorProfileFailed())
+            }
+        } catch (e) {
+            console.log('fetchDoctorProfileStart error:', e)
+        }
+    }
+}
+export const fetchDoctorProfileSuccess = (data) => ({
+    type: actionTypes.FETCH_DOCTOR_PROFILE_SUCCESS,
+    data
+})
+export const fetchDoctorProfileFailed = () => ({
+    type: actionTypes.FETCH_DOCTOR_PROFILE_FAILED
 })

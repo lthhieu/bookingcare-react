@@ -13,8 +13,9 @@ import Login from './Auth/Login'
 import System from '../routes/System'
 import HomePage from './HomePage/HomePage'
 import CustomScrollbars from '../components/CustomScrollbars'
-import DetailDoctor from './Patients/Doctors/DetailDoctor'
+import DoctorDetail from './Patients/Doctors/DoctorDetail'
 import Doctor from '../routes/Doctor'
+import VerifyBookingAppointment from './Patients/Verifies/VerifyBookingAppointment'
 
 class App extends Component {
 
@@ -41,19 +42,19 @@ class App extends Component {
             <Fragment>
                 <Router history={history}>
                     {/* <CustomScrollbars style={{ height: '100vh', width: '100%' }}> */}
-                    <div className="main-container">
-                        <div className="content-container">
-                            <Switch>
-                                <Route path={utils.path.HOME} exact component={(Home)} />
-                                <Route path={utils.path.LOGIN} component={userIsNotAuthenticated(Login)} />
-                                <Route path={utils.path.SYSTEM} component={userIsAuthenticated(System)} />
-                                <Route path={utils.path.MANAGE_SCHEDULE} component={userIsAuthenticated(Doctor)} />
-                                <Route path={utils.path.HOMEPAGE} component={(HomePage)} />
-                                <Route path={utils.path.DETAIL_DOCTOR} component={(DetailDoctor)} />
-                            </Switch>
-                        </div>
-                        <ToastContainer />
+                    <div className="content-container">
+                        <Switch>
+                            <Route path={utils.path.HOME} exact component={(Home)} />
+                            <Route path={utils.path.LOGIN} component={userIsNotAuthenticated(Login)} />
+                            <Route path={utils.path.SYSTEM} component={userIsAuthenticated(System)} />
+                            <Route path={utils.path.MANAGE_SCHEDULE} component={userIsAuthenticated(Doctor)} />
+                            <Route path={utils.path.HOMEPAGE} component={(HomePage)} />
+                            <Route path={utils.path.DOCTOR_DETAIL} component={(DoctorDetail)} />
+                            <Route path={utils.path.VERIFY_BOOKING_APPOINMENT} component={(VerifyBookingAppointment)} />
+
+                        </Switch>
                     </div>
+                    <ToastContainer />
                     {/* </CustomScrollbars> */}
                 </Router>
             </Fragment>

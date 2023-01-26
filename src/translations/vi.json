@@ -1,4 +1,45 @@
 {
+    "verify-booking": {
+        "msg1": "Xác nhận lịch hẹn thành công!",
+        "msg2": "Lịch hẹn này đã được xác nhận hoặc không tồn tại"
+    },
+    "modal-booking": {
+        "title": "Đặt lịch khám",
+        "text1": "Họ tên",
+        "text2": "Số điện thoại",
+        "text3": "Năm sinh",
+        "text4": "Giới tính",
+        "text5": "Email",
+        "text6": "Địa chỉ",
+        "text7": "Lý do khám",
+        "error1": "Vui lòng cung cấp Họ tên",
+        "error2": "Vui lòng cung cấp Số điện thoại",
+        "error3": "Vui lòng chọn Ngày sinh",
+        "error4": "Vui lòng cung cấp Email",
+        "error5": "Vui lòng cung cấp Địa chỉ",
+        "error6": "Vui lòng cung cấp Lý do khám",
+        "error7": "Vui lòng nhập đúng Số điện thoại",
+        "error8": "Vui lòng nhập đúng định dạng Email",
+        "btn-1": "Xác nhận",
+        "btn-2": "Hủy",
+        "toast1": "Đặt lịch hẹn thành công",
+        "toast2": "Đặt lịch hẹn không thành công",
+        "toast3": "Lịch hẹn này đã tồn tại"
+    },
+    "doctor-detail": {
+        "calender": "Lịch Khám",
+        "text-choose": "Chọn",
+        "text-book": "và đặt (Phí đặt lịch 0",
+        "currency": "đ",
+        "text-no-calendar": "Bạn không thể đặt lịch hẹn vào ngày này. Vui lòng chọn ngày khác"
+    },
+    "doctor-info": {
+        "text1": "Đia chỉ khám",
+        "text2": "Giá khám",
+        "text3": "Xem chi tiết",
+        "text4": "Người bệnh có thể thanh toán chi phí bằng hình thức:",
+        "text5": "Ẩn bảng giá"
+    },
     "login": {
         "title": "Đăng nhập",
         "msg": "Đăng nhập để bắt đầu",
@@ -140,11 +181,20 @@
                 "title1": "Thêm thông tin Bác sĩ"
             },
             "body": {
-                "label1": "Chọn Bác sĩ",
-                "label2": "Thông tin giới thiệu (Tiếng Việt)",
-                "label3": "Thông tin giới thiệu (Tiếng Anh)",
-                "label4": "Thông tin chi tiết (Tiếng Việt)",
-                "label5": "Thông tin chi tiết (Tiếng Anh)"
+                "label1": "Chọn Bác sĩ *",
+                "label2": "Thông tin giới thiệu (Tiếng Việt) *",
+                "label3": "Thông tin giới thiệu (Tiếng Anh) *",
+                "label4": "Chọn giá",
+                "label5": "Chọn phương thức thanh toán",
+                "label6": "Chọn tỉnh thành",
+                "label7": "Tên phòng khám (Tiếng Việt) *",
+                "label8": "Địa chỉ phòng khám (Tiếng Việt) *",
+                "label9": "Ghi chú (Tiếng Việt)",
+                "label10": "Tên phòng khám (Tiếng Anh) *",
+                "label11": "Địa chỉ phòng khám (Tiếng Anh) *",
+                "label12": "Ghi chú (Tiếng Anh)",
+                "label13": "Thông tin chi tiết (Tiếng Việt) *",
+                "label14": "Thông tin chi tiết (Tiếng Anh) *"
             },
             "footer": {
                 "button1": "Lưu",
@@ -158,7 +208,19 @@
                 "update": {
                     "success": "Cập nhật thông tin thành công"
                 },
-                "error": "Không thể thực thiện thao tác này"
+                "error": "Không thể thực thiện thao tác này",
+                "error2": "Vui lòng cung cấp thông tin cần thiết"
+            },
+            "error": {
+                "e1": "Vui lòng chọn bác sĩ",
+                "e2": "Vui lòng điền mô tả (Tiếng Việt)",
+                "e3": "Vui lòng điền mô tả (Tiếng Anh)",
+                "e4": "Vui lòng điền tên phòng khám (Tiếng Việt)",
+                "e5": "Vui lòng điền địa chỉ phòng khám (Tiếng Việt)",
+                "e6": "Vui lòng điền tên phòng khám (Tiếng Anh)",
+                "e7": "Vui lòng điền địa chỉ phòng khám (Tiếng Anh)",
+                "e8": "Vui lòng điền mô tả chi tiết (Tiếng Việt)",
+                "e9": "Vui lòng điền mô tả chi tiết (Tiếng Anh)"
             }
         },
         "manage-schedule": {

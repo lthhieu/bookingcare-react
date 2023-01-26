@@ -12,6 +12,8 @@ class Header extends Component {
         this.state = {
         }
     }
+    async componentDidUpdate(prevProps, prevState) {
+    }
     handleChangeLanguage = (language) => {
         this.props.changeLanguage(language)
     }
@@ -25,7 +27,6 @@ class Header extends Component {
 
     render() {
         let { language, nameEn, nameVi, showName } = this.props
-        // console.log(showName)
         return (<>{this.props.home ?
             <div className='header-container'>
                 <div className='header-content'>

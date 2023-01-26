@@ -4,12 +4,17 @@ export const path = {
     LOGIN: '/login',
     LOG_OUT: '/logout',
     SYSTEM: '/system',
-    DETAIL_DOCTOR: '/doctor/:id',
-    MANAGE_SCHEDULE: '/doctor/manage-schedule'
+    DOCTOR_DETAIL: '/doctor/:id',
+    MANAGE_SCHEDULE: '/doctor/manage-schedule',
+    VERIFY_BOOKING_APPOINMENT: '/verify-booking'
 };
 
 export const DATE_FORMAT = {
-    SEND_TO_SERVER: 'DD/MM/YYYY'
+    SEND_TO_SERVER: 'DD/MM/YYYY',
+    SELECT_DATE_VI: 'dddd - DD/MM',
+    SELECT_DATE_EN: 'ddd - DD/MM',
+    DATE_DD_MM: 'DD/MM',
+    DATE_IN_MODAL: 'dddd - DD/MM/YYYY'
 }
 
 export const LANGUAGES = {

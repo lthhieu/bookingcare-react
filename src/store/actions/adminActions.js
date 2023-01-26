@@ -4,80 +4,38 @@ import * as services from '../../services'
 import { toast } from 'react-toastify';
 import { FormattedMessage } from 'react-intl';
 
-export const fetchGenderStart = () => {
+export const fetchGenderRolePositionStart = () => {
     return async (dispatch, getState) => {
         try {
             dispatch({
-                type: actionTypes.FETCH_GENDER_START
+                type: actionTypes.FETCH_GENDER_ROLE_POSITION_START
             })
-            let res = await services.getAllCode('gender')
-            if (res && res.errCode === '0') {
-                dispatch(fetchGenderSuccess(res.data))
+            let resGender = await services.getAllCodeService('gender')
+            let resRole = await services.getAllCodeService('role')
+            let resPosition = await services.getAllCodeService('position')
+            if (resGender && resGender.errCode === '0' && resRole && resRole.errCode === '0' && resPosition && resPosition.errCode === '0') {
+                let data = {
+                    genders: resGender.data,
+                    roles: resRole.data,
+                    positions: resPosition.data,
+                }
+                dispatch(fetchGenderRolePositionSuccess(data))
             } else {
-                dispatch(fetchGenderFailed())
+                dispatch(fetchGenderRolePositionFailed())
             }
         } catch (e) {
-            console.log('fetchGenderStart error:', e)
+            console.log('fetchGenderRolePositionStart error:', e)
         }
     }
 }
-export const fetchGenderSuccess = (data) => ({
-    type: actionTypes.FETCH_GENDER_SUCCESS,
+export const fetchGenderRolePositionSuccess = (data) => ({
+    type: actionTypes.FETCH_GENDER_ROLE_POSITION_SUCCESS,
     data
 })
-export const fetchGenderFailed = () => ({
-    type: actionTypes.FETCH_GENDER_FAILED
+export const fetchGenderRolePositionFailed = () => ({
+    type: actionTypes.FETCH_GENDER_ROLE_POSITION_FAILED
 })
 
-export const fetchRoleStart = () => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({
-                type: actionTypes.FETCH_ROLE_START
-            })
-            let res = await services.getAllCode('role')
-            if (res && res.errCode === '0') {
-                dispatch(fetchRoleSuccess(res.data))
-            } else {
-                dispatch(fetchRoleFailed())
-            }
-        } catch (e) {
-            console.log('fetchRoleStart error:', e)
-        }
-    }
-}
-export const fetchRoleSuccess = (data) => ({
-    type: actionTypes.FETCH_ROLE_SUCCESS,
-    data
-})
-export const fetchRoleFailed = () => ({
-    type: actionTypes.FETCH_ROLE_FAILED
-})
-
-export const fetchPositionStart = () => {
-    return async (dispatch, getState) => {
-        try {
-            dispatch({
-                type: actionTypes.FETCH_POSITION_START
-            })
-            let res = await services.getAllCode('position')
-            if (res && res.errCode === '0') {
-                dispatch(fetchPositionSuccess(res.data))
-            } else {
-                dispatch(fetchPositionFailed())
-            }
-        } catch (e) {
-            console.log('fetchPositionStart error:', e)
-        }
-    }
-}
-export const fetchPositionSuccess = (data) => ({
-    type: actionTypes.FETCH_POSITION_SUCCESS,
-    data
-})
-export const fetchPositionFailed = () => ({
-    type: actionTypes.FETCH_POSITION_FAILED
-})
 
 export const addNewUserReduxStart = (data) => {
     return async (dispatch, getState) => {

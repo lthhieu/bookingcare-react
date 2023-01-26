@@ -1,13 +1,11 @@
-import React, { Component } from 'react';
-import { FormattedMessage } from 'react-intl';
-import { connect } from 'react-redux';
-
+import React, { Component, useState } from 'react'
+import { FormattedMessage } from 'react-intl'
+import { connect } from 'react-redux'
 import * as actions from '../../../../store/actions'
 import * as utils from '../../../../utils'
-import CircularProgress from '@mui/material/CircularProgress';
-
-import Tooltip from '@mui/material/Tooltip';
-
+import CircularProgress from '@mui/material/CircularProgress'
+import Tooltip from '@mui/material/Tooltip'
+import ReactPaginate from 'react-paginate';
 class UserReduxTable extends Component {
 
     constructor(props) {
@@ -21,9 +19,10 @@ class UserReduxTable extends Component {
     }
 
     componentDidUpdate(prevProps, prevState) {
-        if (prevProps.usersFromRedux !== this.props.usersFromRedux) {
+        let { usersFromRedux } = this.props
+        if (prevProps.usersFromRedux !== usersFromRedux) {
             this.setState({
-                users: this.props.usersFromRedux
+                users: usersFromRedux
             })
         }
     }
@@ -39,7 +38,6 @@ class UserReduxTable extends Component {
     handleOpenModal = () => {
         this.props.handleOpenModalFromParents()
     }
-
     render() {
         let { language, isFetchingUsers } = this.props
         let { users } = this.state

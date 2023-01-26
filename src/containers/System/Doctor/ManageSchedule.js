@@ -4,25 +4,22 @@ import { connect } from "react-redux"
 import Select from 'react-select';
 import * as actions from '../../../store/actions'
 import * as utils from '../../../utils'
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import vi from 'date-fns/locale/vi'
-import enUS from 'date-fns/locale/en-US'
 import moment from 'moment';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import DatePickerCustom from '../../../components/MyCustom/DatePickerCustom';
 class ManageSchedule extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            startDate: new Date(),
+            choosenDate: new Date(),
             nameDoctors: [],
             selectedDoctor: null,
             times: []
         }
     }
     componentDidMount() {
-        this.props.getNameDoctorsStart()
+        this.props.getNameDoctorsStart('')
         this.props.fetchTimeStart()
     }
     componentDidUpdate(prevProps, prevState) {
@@ -51,7 +48,7 @@ class ManageSchedule extends Component {
                 })
             }
             this.setState({
-                selectedDoctor: null, times, startDate: new Date()
+                selectedDoctor: null, times, choosenDate: new Date()
             })
         }
     }
@@ -76,9 +73,8 @@ class ManageSchedule extends Component {
         })
     }
     handleChangeDate = (date) => {
-        console.log(date)
         this.setState({
-            startDate: date
+            choosenDate: date
         })
     }
     handleChooseTime = (data) => {
@@ -93,33 +89,37 @@ class ManageSchedule extends Component {
     }
     handleSaveSchedule = async () => {
         let result = []
-        let { times, selectedDoctor, startDate } = this.state
+        let { times, selectedDoctor, choosenDate } = this.state
         if (selectedDoctor && !_.isEmpty(selectedDoctor)) {
-            if (startDate !== null) {
-                startDate = moment(startDate).format(utils.DATE_FORMAT.SEND_TO_SERVER)
+            if (choosenDate !== null) {
+                choosenDate = moment(choosenDate).format(utils.DATE_FORMAT.SEND_TO_SERVER)
                 if (times && times.length > 0) {
                     let timeActive = times.filter(item => item.active)
                     if (timeActive && timeActive.length > 0) {
                         timeActive.map(item => {
                             let obj = {}
                             obj.doctorId = selectedDoctor.value
-                            obj.date = startDate
+                            obj.date = choosenDate
                             obj.time = item.keyMap
                             result.push(obj)
                         })
                         this.props.createBulkScheduleStart({
                             schedule: result,
                             doctorId: selectedDoctor.value,
-                            date: startDate
+                            date: choosenDate
                         })
                     } else { toast.warning(<FormattedMessage id='users.manage-schedule.alerts.alert3' />) }
                 }
             } else { toast.warning(<FormattedMessage id='users.manage-schedule.alerts.alert2' />) }
         } else { toast.warning(<FormattedMessage id='users.manage-schedule.alerts.alert1' />) }
     }
+    // isWeekday = (date) => {
+    //     const day = date.getDay();
+    //     return day !== 0
+    // }
     render() {
         let { language } = this.props
-        let { startDate, selectedDoctor, nameDoctors, times } = this.state
+        let { choosenDate, selectedDoctor, nameDoctors, times } = this.state
 
         return (
             <div className='content-wrapper'>
@@ -157,15 +157,11 @@ class ManageSchedule extends Component {
                                             </div>
                                             <div className='col-6 form-group'>
                                                 <label><FormattedMessage id='users.manage-schedule.label1' /></label>
-                                                <DatePicker
+                                                <DatePickerCustom
+                                                    selectedDate={choosenDate}
                                                     minDate={new Date()}
-                                                    locale={language === utils.LANGUAGES.VI ? vi : enUS}
-                                                    dateFormat="dd/MM/yyyy"
-                                                    isClearable
-                                                    placeholderText={language === utils.LANGUAGES.VI ? 'Chọn ngày..' : 'Choose date..'}
-                                                    className='form-control'
-                                                    selected={startDate}
-                                                    onChange={this.handleChangeDate} />
+                                                    handleChangeDate={this.handleChangeDate}
+                                                    language={language} />
                                             </div>
                                         </div>
                                         <div className='row mb-5'>
@@ -173,7 +169,7 @@ class ManageSchedule extends Component {
                                                 {times && times.length > 0 &&
                                                     times.map((item, index) => {
                                                         return (
-                                                            <button onClick={() => this.handleChooseTime(item)} className={item.active ? 'btn btn-primary mr-3 mb-3' : 'btn btn-outline-primary mr-3 mb-3'} key={index}>{language === utils.LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
+                                                            <button style={{ minWidth: '220px' }} onClick={() => this.handleChooseTime(item)} className={item.active ? 'btn btn-primary mr-3 mb-3' : 'btn btn-outline-primary mr-3 mb-3'} key={index}>{language === utils.LANGUAGES.VI ? item.valueVi : item.valueEn}</button>)
                                                     })}
                                             </div>
                                         </div>
@@ -205,7 +201,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         createBulkScheduleStart: (data) => dispatch(actions.createBulkScheduleStart(data)),
-        getNameDoctorsStart: () => dispatch(actions.getNameDoctorsStart()),
+        getNameDoctorsStart: (id) => dispatch(actions.getNameDoctorsStart(id)),
         fetchTimeStart: () => dispatch(actions.fetchTimeStart())
     };
 };

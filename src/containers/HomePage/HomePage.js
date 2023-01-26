@@ -23,7 +23,7 @@ class HomePage extends Component {
             slidesToScroll: 2
         }
         return (
-            <div>
+            <>
                 <Header home={true} />
                 <Banner />
                 <Specialty settings={settings} />
@@ -32,7 +32,7 @@ class HomePage extends Component {
                 <Handbook />
                 <About />
                 <Footer />
-            </div>
+            </>
         );
     }
 

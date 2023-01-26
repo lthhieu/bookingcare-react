@@ -16,6 +16,6 @@ export const deleteUser = (id) => {
 export const updateUser = (data) => {
     return axios.put('api/update-users', data)
 }
-export const getAllCode = (type) => {
+export const getAllCodeService = (type) => {
     return axios.get('/api/get-all-code', { params: { type } })
 }

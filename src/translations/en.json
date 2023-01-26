@@ -1,4 +1,45 @@
 {
+    "verify-booking": {
+        "msg1": "Confirm the appointment successfully!",
+        "msg2": "This appointment is confirmed or is not existed"
+    },
+    "modal-booking": {
+        "title": "Make an appointment",
+        "text1": "Full name",
+        "text2": "Phone number",
+        "text3": "Birthday",
+        "text4": "Gender",
+        "text5": "Email",
+        "text6": "Address",
+        "text7": "Reason",
+        "error1": "Please provide Full name",
+        "error2": "Please provide Phone number",
+        "error3": "Please choose Birthday",
+        "error4": "Please provide Email",
+        "error5": "Please provide Address",
+        "error6": "Please provide Reason",
+        "error7": "Please enter the correct Phone number",
+        "error8": "Please enter the correct Email format",
+        "btn-1": "Confirm",
+        "btn-2": "Cancel",
+        "toast1": "Create an appointment successfully",
+        "toast2": "Create an appointment failed",
+        "toast3": "This appointment is existed"
+    },
+    "doctor-detail": {
+        "calender": "Calender",
+        "text-choose": "Choose",
+        "text-book": "and book (Fee 0",
+        "currency": "d",
+        "text-no-calendar": "You cannot make an appointment on this date. Please choose another date"
+    },
+    "doctor-info": {
+        "text1": "Address",
+        "text2": "Examination price",
+        "text3": "See details",
+        "text4": "Patients can pay the costs in the following ways:",
+        "text5": "Hide price list"
+    },
     "login": {
         "title": "Log in",
         "msg": "Log in to start your session",
@@ -140,11 +181,20 @@
                 "title1": "Add Doctor's information"
             },
             "body": {
-                "label1": "Choose Doctor",
-                "label2": "Description (Vietnamese)",
-                "label3": "Description (English)",
-                "label4": "Detail (Vietnamese)",
-                "label5": "Detail (English)"
+                "label1": "Choose Doctor *",
+                "label2": "Description (Vietnamese) *",
+                "label3": "Description (English) *",
+                "label4": "Choose price",
+                "label5": "Choose payment",
+                "label6": "Choose province",
+                "label7": "Clinic name (Vietnamese) *",
+                "label8": "Clinic address (Vietnamese) *",
+                "label9": "Note (Vietnamese)",
+                "label10": "Clinic name (English) *",
+                "label11": "Clinic address (English) *",
+                "label12": "Note (English)",
+                "label13": "Detail (Vietnamese) *",
+                "label14": "Detail (English) *"
             },
             "footer": {
                 "button1": "Save",
@@ -158,7 +208,19 @@
                 "update": {
                     "success": "Updated Successfully"
                 },
-                "error": "Cannot do this action"
+                "error": "Cannot do this action",
+                "error2": "Please provide available information"
+            },
+            "error": {
+                "e1": "Please choose a doctor",
+                "e2": "Please type a description (Vietnamese)",
+                "e3": "Please type a description (English)",
+                "e4": "Please type a clinic name (Vietnamese)",
+                "e5": "Please type a clinic address (Vietnamese)",
+                "e6": "Please type a clinic name (English)",
+                "e7": "Please type a clinic address (English)",
+                "e8": "Please type a detail (Vietnamese)",
+                "e9": "Please type a detail (English)"
             }
         },
         "manage-schedule": {

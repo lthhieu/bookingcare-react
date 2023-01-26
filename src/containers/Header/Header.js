@@ -43,7 +43,7 @@ class Header extends Component {
         let { menuHeader, time } = this.state
         let greeting = ''
         if (time >= 5 && time <= 12) {
-
+            greeting = <FormattedMessage id="header-content-right.title2" />
         }
         else if (time >= 13 && time <= 18) {
             greeting = <FormattedMessage id="header-content-right.title3" />

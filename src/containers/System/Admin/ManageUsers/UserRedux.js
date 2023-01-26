@@ -36,32 +36,39 @@ class UserRedux extends Component {
 
     async componentDidMount() {
 
-        this.props.fetchGenderStart()
-        this.props.fetchRoleStart()
-        this.props.fetchPositionStart()
+        this.props.fetchGenderRolePositionStart()
 
     }
     componentDidUpdate = (prevProps, prevState) => {
-        let { genders, roles, positions, usersFromRedux } = this.props
-        if (this.props.genders !== prevProps.genders || this.props.roles !== prevProps.roles || this.props.positions !== prevProps.positions) {
-            this.setState({
-                genders: genders,
-                genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
-                roles: roles,
-                roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
-                positions: positions,
-                positionId: positions && positions.length > 0 ? positions[0].keyMap : ''
-            })
+        let { gendersRolesPositionsData, usersFromRedux } = this.props
+        if (gendersRolesPositionsData !== prevProps.gendersRolesPositionsData) {
+            if (gendersRolesPositionsData) {
+                let genders = gendersRolesPositionsData.genders
+                let roles = gendersRolesPositionsData.roles
+                let positions = gendersRolesPositionsData.positions
+                this.setState({
+                    genders, roles, positions,
+                    genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
+                    roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
+                    positionId: positions && positions.length > 0 ? positions[0].keyMap : ''
+                })
+            }
+
         }
         if (prevProps.usersFromRedux !== usersFromRedux) {
-            this.setState({
-                fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', image: '',
-                genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
-                roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
-                positionId: positions && positions.length > 0 ? positions[0].keyMap : '',
-                action: utils.CRUD.CREATE,
-                openModal: false
-            })
+            if (gendersRolesPositionsData) {
+                let genders = gendersRolesPositionsData.genders
+                let roles = gendersRolesPositionsData.roles
+                let positions = gendersRolesPositionsData.positions
+                this.setState({
+                    fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', image: '',
+                    genderId: genders && genders.length > 0 ? genders[0].keyMap : '',
+                    roleId: roles && roles.length > 0 ? roles[0].keyMap : '',
+                    positionId: positions && positions.length > 0 ? positions[0].keyMap : '',
+                    action: utils.CRUD.CREATE,
+                    openModal: false
+                })
+            }
         }
     }
 
@@ -128,7 +135,6 @@ class UserRedux extends Component {
         let checkValid = this.checkValidData()
         if (checkValid) {
             let { fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image, action, update_id } = this.state
-
             if (action === utils.CRUD.CREATE) {
                 this.props.addNewUserReduxStart({
                     fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image
@@ -142,15 +148,15 @@ class UserRedux extends Component {
         }
     }
 
-    handleOnChangeInput = (e, id) => {
+    handleOnChangeInput = (e, key) => {
+        let value = e.target.value
         let copyState = { ...this.state }
-        copyState[id] = e.target.value
-        this.setState({
-            ...copyState
-        })
+        copyState[key] = value
+        this.setState({ ...copyState })
     }
     handleResetError = () => {
-        let { genders, roles, positions } = this.props
+        let { gendersRolesPositionsData } = this.props
+        let { genders, roles, positions } = gendersRolesPositionsData
         this.setState({
             fNameVi_ERR: '', fNameEn_ERR: '', lNameVi_ERR: '', lNameEn_ERR: '', email_ERR: '', password_ERR: '', addressVi_ERR: '', addressEn_ERR: '', phoneNo_ERR: '', fNameVi: '', fNameEn: '', lNameVi: '', lNameEn: '', email: '', password: '', addressVi: '', addressEn: '', phoneNo: '', previewImgURL: '',
             action: utils.CRUD.CREATE,
@@ -159,9 +165,6 @@ class UserRedux extends Component {
             positionId: positions && positions.length > 0 ? positions[0].keyMap : ''
         })
     }
-
-
-
     handleUpdateUserFromParents = (user) => {
         let { id, fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image } = user
         let imageBase64 = '', objectUrl = ''
@@ -174,8 +177,6 @@ class UserRedux extends Component {
             let blob = utils.CommonUtils.b64toBlob(imageBase64)
             objectUrl = URL.createObjectURL(blob)
         }
-
-
         this.setState({
             fNameVi, fNameEn, lNameVi, lNameEn, email, password: 'HARDCODE', addressVi, addressEn, phoneNo, genderId, roleId, positionId,
             image: imageBase64,
@@ -193,7 +194,7 @@ class UserRedux extends Component {
 
     render() {
         let { genders, roles, positions, previewImgURL, isOpenImg, fNameVi, fNameEn, lNameVi, lNameEn, email, password, addressVi, addressEn, phoneNo, fNameVi_ERR, fNameEn_ERR, lNameVi_ERR, lNameEn_ERR, email_ERR, password_ERR, addressVi_ERR, addressEn_ERR, phoneNo_ERR, genderId, roleId, positionId, action, openModal } = this.state
-        let { language, isLoadingGender, isLoadingRole, isLoadingPosition } = this.props
+        let { language } = this.props
         return (
             <div className="content-wrapper">
                 <Modal zIndex={1} keyboard={false} backdrop='static' size='lg' isOpen={openModal}>
@@ -257,7 +258,7 @@ class UserRedux extends Component {
                                 <span className='text-danger'>{phoneNo_ERR}</span>
                             </div>
                             <div className="form-group col-md-4">
-                                <label><FormattedMessage id="users.user-redux.body.text10" /> {isLoadingGender === true ? <CircularProgress size="1rem" /> : ''}</label>
+                                <label><FormattedMessage id="users.user-redux.body.text10" /></label>
                                 <select value={genderId} onChange={(e) => this.handleOnChangeInput(e, 'genderId')} className="custom-select">
                                     {genders && genders.length > 0 ?
                                         genders.map((item, index) => {
@@ -268,7 +269,7 @@ class UserRedux extends Component {
                                 </select>
                             </div>
                             <div className="form-group col-md-4">
-                                <label><FormattedMessage id="users.user-redux.body.text11" /> {isLoadingRole === true ? <CircularProgress size="1rem" /> : ''}</label>
+                                <label><FormattedMessage id="users.user-redux.body.text11" /></label>
 
                                 <select value={roleId} onChange={(e) => this.handleOnChangeInput(e, 'roleId')} className="custom-select">
                                     {roles && roles.length > 0 ?
@@ -282,7 +283,7 @@ class UserRedux extends Component {
                         </div>
                         <div className="form-row">
                             <div className="form-group col-md-4">
-                                <label><FormattedMessage id="users.user-redux.body.text12" /> {isLoadingPosition === true ? <CircularProgress size="1rem" /> : ''}</label>
+                                <label><FormattedMessage id="users.user-redux.body.text12" /></label>
 
                                 <select value={positionId} onChange={(e) => this.handleOnChangeInput(e, 'positionId')} className="custom-select">
                                     {positions && positions.length > 0 ?
@@ -346,21 +347,14 @@ class UserRedux extends Component {
 const mapStateToProps = state => {
     return {
         language: state.app.language,
-        genders: state.admin.genders,
-        isLoadingGender: state.admin.isLoadingGender,
-        roles: state.admin.roles,
-        isLoadingRole: state.admin.isLoadingRole,
-        positions: state.admin.positions,
-        isLoadingPosition: state.admin.isLoadingPosition,
+        gendersRolesPositionsData: state.admin.gendersRolesPositionsData,
         usersFromRedux: state.admin.users
     };
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchGenderStart: () => dispatch(actions.fetchGenderStart()),
-        fetchRoleStart: () => dispatch(actions.fetchRoleStart()),
-        fetchPositionStart: () => dispatch(actions.fetchPositionStart()),
+        fetchGenderRolePositionStart: () => dispatch(actions.fetchGenderRolePositionStart()),
         addNewUserReduxStart: (data) => dispatch(actions.addNewUserReduxStart(data)),
         updateUserReduxStart: (data) => dispatch(actions.updateUserReduxStart(data))
     };
