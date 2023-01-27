@@ -26,7 +26,9 @@ class Header extends Component {
     }
 
     render() {
+
         let { language, nameEn, nameVi, showName } = this.props
+        console.log(nameEn)
         return (<>{this.props.home ?
             <div className='header-container'>
                 <div className='header-content'>

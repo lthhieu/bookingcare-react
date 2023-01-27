@@ -6,7 +6,8 @@ export const path = {
     SYSTEM: '/system',
     DOCTOR_DETAIL: '/doctor/:id',
     MANAGE_SCHEDULE: '/doctor/manage-schedule',
-    VERIFY_BOOKING_APPOINMENT: '/verify-booking'
+    VERIFY_BOOKING_APPOINMENT: '/verify-booking',
+    SPECIALTY_DETAIL: '/specialty/:id',
 };
 
 export const DATE_FORMAT = {

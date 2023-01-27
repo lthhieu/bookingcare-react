@@ -8,7 +8,7 @@ class Footer extends Component {
         return (
             <div className='footer-cus main-footer'>
                 <div className='footer-left'>
-                    &copy; Clone Bookingcare.vn by Ly Tran Hoang Hieu
+                    &copy; <FormattedMessage id='footer' />
                 </div>
                 <div className='footer-right'>
                     <a target='_blank' href='https://github.com/lthhieu/bookingcare'>

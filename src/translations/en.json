@@ -1,4 +1,13 @@
 {
+    "manage-specialties": {
+        "text1": "Specialty name (Vietnamese) *",
+        "text2": "Specialty name (English) *",
+        "text3": "Specialty image",
+        "toast-error": "Cannot do this action",
+        "error1": "Please provide Specialty name (Vietnamese)",
+        "error2": "Please provide Specialty name (English)"
+    },
+    "footer": "Copy of Bookingcare made by Ly Tran Hoang Hieu",
     "verify-booking": {
         "msg1": "Confirm the appointment successfully!",
         "msg2": "This appointment is confirmed or is not existed"
@@ -78,6 +87,7 @@
         "option6": "Dental Examination"
     },
     "sections": {
+        "specialties": "Popular Specialties",
         "doctors": "Outstanding Doctors of the week",
         "button": "More Info"
     },
@@ -194,7 +204,9 @@
                 "label11": "Clinic address (English) *",
                 "label12": "Note (English)",
                 "label13": "Detail (Vietnamese) *",
-                "label14": "Detail (English) *"
+                "label14": "Detail (English) *",
+                "label15": "Choose Specailty",
+                "label16": "Choose clinic"
             },
             "footer": {
                 "button1": "Save",

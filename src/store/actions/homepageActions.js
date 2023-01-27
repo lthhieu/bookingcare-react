@@ -1,6 +1,31 @@
 import actionTypes from './actionTypes';
 import * as services from '../../services'
 
+export const fetchSpecialtyHomeStart = () => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_SPECIALTY_HOME_START
+            })
+            let res = await services.fetchSpecialtyHomeService('')
+            if (res && res.errCode === '0') {
+                dispatch(fetchSpecialtyHomeSuccess(res.data))
+            } else {
+                dispatch(fetchSpecialtyHomeFailed())
+            }
+        } catch (e) {
+            console.log('fetchSpecialtyHomeStart error:', e)
+        }
+    }
+}
+export const fetchSpecialtyHomeSuccess = (data) => ({
+    type: actionTypes.FETCH_SPECIALTY_HOME_SUCCESS,
+    data
+})
+export const fetchSpecialtyHomeFailed = () => ({
+    type: actionTypes.FETCH_SPECIALTY_HOME_FAILED
+})
+
 export const fetchDoctorHomeStart = () => {
     return async (dispatch, getState) => {
         try {

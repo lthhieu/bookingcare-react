@@ -52,7 +52,6 @@ class DoctorDetail extends Component {
         }
     }
     render() {
-        console.log(this.props)
         let { detailVi, detailEn, showName, doctorId, nameVi, nameEn } = this.state
         let { language } = this.props
         return (

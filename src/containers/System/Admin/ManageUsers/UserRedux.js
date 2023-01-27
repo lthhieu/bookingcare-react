@@ -1,18 +1,15 @@
 import React, { Component } from 'react';
 import { FormattedMessage } from 'react-intl';
 import { connect } from 'react-redux';
-import './UserRedux.scss'
 import UserReduxTable from './UserReduxTable';
 import * as actions from '../../../../store/actions'
 import Tooltip from '@mui/material/Tooltip';
 import CircularProgress from '@mui/material/CircularProgress';
 import Lightbox from 'react-image-lightbox';
 import 'react-image-lightbox/style.css';
-
 import * as utils from '../../../../utils'
-
-
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { toast } from 'react-toastify';
 class UserRedux extends Component {
 
     constructor(props) {
@@ -145,6 +142,8 @@ class UserRedux extends Component {
                     fNameVi, fNameEn, lNameVi, lNameEn, email, addressVi, addressEn, phoneNo, genderId, roleId, positionId, image
                 })
             }
+        } else {
+            toast.error(<FormattedMessage id='manage-specialties.toast-error' />)
         }
     }
 
@@ -284,7 +283,6 @@ class UserRedux extends Component {
                         <div className="form-row">
                             <div className="form-group col-md-4">
                                 <label><FormattedMessage id="users.user-redux.body.text12" /></label>
-
                                 <select value={positionId} onChange={(e) => this.handleOnChangeInput(e, 'positionId')} className="custom-select">
                                     {positions && positions.length > 0 ?
                                         positions.map((item, index) => {

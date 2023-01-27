@@ -53,7 +53,6 @@ class VerifyBookingAppointment extends Component {
 
 const mapStateToProps = state => {
     return {
-        language: state.app.language
     }
 }
 

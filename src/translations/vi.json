@@ -1,4 +1,13 @@
 {
+    "manage-specialties": {
+        "text1": "Tên chuyên khoa (Tiếng Việt) *",
+        "text2": "Tên chuyên khoa (Tiếng Anh) *",
+        "text3": "Ảnh chuyên khoa",
+        "toast-error": "Không thể thực thực hiện tác vụ này",
+        "error1": "Vui lòng cung cấp Tên chuyên khoa (Tiếng Việt)",
+        "error2": "Vui lòng cung cấp Tên chuyên khoa (Tiếng Anh)"
+    },
+    "footer": "Bản sao của Bookingcare.vn do Lý Trần Hoàng Hiếu thực hiện",
     "verify-booking": {
         "msg1": "Xác nhận lịch hẹn thành công!",
         "msg2": "Lịch hẹn này đã được xác nhận hoặc không tồn tại"
@@ -78,6 +87,7 @@
         "option6": "Khám Nha khoa"
     },
     "sections": {
+        "specialties": "Chuyên khoa phổ biến",
         "doctors": "Bác sĩ nổi bật tuần qua",
         "button": "Xem thêm"
     },
@@ -115,7 +125,7 @@
             }
         },
         "doctor": {
-            "manage1": "QL kế hoạch"
+            "manage1": "QL Kế hoạch"
         }
     },
     "users": {
@@ -194,7 +204,9 @@
                 "label11": "Địa chỉ phòng khám (Tiếng Anh) *",
                 "label12": "Ghi chú (Tiếng Anh)",
                 "label13": "Thông tin chi tiết (Tiếng Việt) *",
-                "label14": "Thông tin chi tiết (Tiếng Anh) *"
+                "label14": "Thông tin chi tiết (Tiếng Anh) *",
+                "label15": "Chọn chuyên khoa",
+                "label16": "Chọn phòng khám"
             },
             "footer": {
                 "button1": "Lưu",

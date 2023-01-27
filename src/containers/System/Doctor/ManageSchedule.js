@@ -19,7 +19,7 @@ class ManageSchedule extends Component {
         }
     }
     componentDidMount() {
-        this.props.getNameDoctorsStart('')
+        this.props.getNameDoctorsStart()
         this.props.fetchTimeStart()
     }
     componentDidUpdate(prevProps, prevState) {
@@ -201,7 +201,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         createBulkScheduleStart: (data) => dispatch(actions.createBulkScheduleStart(data)),
-        getNameDoctorsStart: (id) => dispatch(actions.getNameDoctorsStart(id)),
+        getNameDoctorsStart: () => dispatch(actions.getNameDoctorsStart()),
         fetchTimeStart: () => dispatch(actions.fetchTimeStart())
     };
 };

@@ -11,6 +11,7 @@ import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
 import { persistReducer } from 'redux-persist';
 import patientReducer from './patientReducer';
+import specialtyReducer from './specialtyReducer';
 
 const persistCommonConfig = {
     storage: storage,
@@ -34,5 +35,6 @@ export default (history) => combineReducers({
     admin: adminReducer,
     homepage: homepageReducer,
     doctor: doctorReducer,
-    patient: patientReducer
+    patient: patientReducer,
+    specialty: specialtyReducer
 })

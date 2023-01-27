@@ -6,11 +6,11 @@ import Select from 'react-select';
 import './Doctor.scss'
 import MarkdownIt from 'markdown-it';
 import MdEditor from 'react-markdown-editor-lite';
-import 'react-markdown-editor-lite/lib/index.css';
 import * as actions from '../../../../store/actions'
 import * as utils from '../../../../utils'
 import Lightbox from 'react-image-lightbox';
 import { toast } from 'react-toastify';
+import _ from 'lodash';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -22,10 +22,9 @@ class Doctors extends Component {
             //posts table
             contentHtmlVi: '', contentHtmlEn: '', contentMarkDownVi: '', descriptionVi: '', descriptionEn: '', contentMarkDownEn: '',
             //doctor-infos table
-            prices: [],
-            payments: [],
-            provinces: [],
-            selectedPrice: null, selectedPayment: null, selectedProvince: null,
+            prices: [], payments: [], provinces: [], specialties: [], clinics: [],
+
+            selectedPrice: null, selectedPayment: null, selectedProvince: null, selectedSpecialty: null, selectedClinic: null,
             nameClinicVi: '', nameClinicEn: '', addressClinicVi: '', addressClinicEn: '', noteVi: '', noteEn: '',
             //error msg
             selectedDoctor_err: '', nameClinicVi_err: '', nameClinicEn_err: '', addressClinicVi_err: '', addressClinicEn_err: '', contentMarkDownVi_err: '', descriptionVi_err: '', descriptionEn_err: '', contentMarkDownEn_err: '',
@@ -36,30 +35,61 @@ class Doctors extends Component {
             previewImgURL: '',
             isOpenImg: false
         }
+        this.listenEmitter()
+    }
+    listenEmitter = () => {
+        utils.emitter.on('CREATE OR UPDATE DOCTOR INFO SUCCESSFULLY', () => {
+            this.handleCancel()
+        })
     }
     componentDidMount() {
         this.props.getNameDoctorsStart()
+        this.props.fetchAllNameSpecialtiesStart()
         this.props.fetchDoctorInfoFromDoctorInfosTableStart()
     }
 
     handleBuildOptions = (data, type) => {
         let result = []
         let { language } = this.props
-        if (data && data.length > 0) {
-            data.map((item, index) => {
-                let object = {}
-                let labelVi = type === 'Name' ? `${item.fNameVi} ${item.lNameVi}` : item.valueVi
-                let labelEn = type === 'Name' ? `${item.fNameEn} ${item.lNameEn}` : item.valueEn
-                object.label = language === utils.LANGUAGES.VI ? labelVi : labelEn
-                object.value = type === 'Name' ? item.id : item.keyMap
-                result.push(object)
-            })
+        if (type === 'Name') {
+            if (data && data.length > 0) {
+                data.map((item, index) => {
+                    let object = {}
+                    let labelVi = `${item.fNameVi} ${item.lNameVi}`
+                    let labelEn = `${item.fNameEn} ${item.lNameEn}`
+                    object.label = language === utils.LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.id
+                    result.push(object)
+                })
+            }
+        } else if (type === 'AllNameSpecialties') {
+            if (data && data.length > 0) {
+                data.map((item, index) => {
+                    let object = {}
+                    let labelVi = item.nameVi
+                    let labelEn = item.nameEn
+                    object.label = language === utils.LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.id
+                    result.push(object)
+                })
+            }
+        } else {
+            if (data && data.length > 0) {
+                data.map((item, index) => {
+                    let object = {}
+                    let labelVi = item.valueVi
+                    let labelEn = item.valueEn
+                    object.label = language === utils.LANGUAGES.VI ? labelVi : labelEn
+                    object.value = item.keyMap
+                    result.push(object)
+                })
+            }
         }
         return result
     }
 
     componentDidUpdate(prevProps, prevState) {
-        let { nameDoctors, language, isCreatingOrUpdatingDoctorInfo, doctorDetailInfo, doctorInfoFromDoctorInfosTable } = this.props
+        let { nameDoctors, allNameSpecialties, language, doctorDetailInfo, doctorInfoFromDoctorInfosTable } = this.props
         if (prevProps.nameDoctors !== nameDoctors || prevProps.language !== language) {
             let nameOptions = this.handleBuildOptions(nameDoctors, 'Name')
             this.setState({
@@ -73,28 +103,43 @@ class Doctors extends Component {
                 previewImgURL: ''
             })
         }
-        if (prevProps.isCreatingOrUpdatingDoctorInfo !== isCreatingOrUpdatingDoctorInfo && prevProps.isCreatingOrUpdatingDoctorInfo === true && isCreatingOrUpdatingDoctorInfo === false) {
-            this.handleCancel()
+        if (prevProps.allNameSpecialties !== allNameSpecialties || prevProps.language !== language) {
+            let nameOptions = this.handleBuildOptions(allNameSpecialties, 'AllNameSpecialties')
+            this.setState({
+                specialties: nameOptions,
+                selectedSpecialty: nameOptions[0]
+            })
         }
         if (prevProps.doctorDetailInfo !== doctorDetailInfo) {
-            if (doctorDetailInfo.doctorInfoData) {
+            if (doctorDetailInfo.doctorData && !_.isEmpty(doctorDetailInfo.doctorData)) {
+                let doctorData = doctorDetailInfo.doctorData
+                let specialtyOptions = this.handleBuildOptions(allNameSpecialties, 'AllNameSpecialties')
+                specialtyOptions = specialtyOptions.filter(x => x.value === doctorData.specialtyId)
+                this.setState({ selectedSpecialty: specialtyOptions[0] })
+            }
+            if (doctorDetailInfo.doctorInfoData && !_.isEmpty(doctorDetailInfo.doctorInfoData)) {
                 let doctor_info = doctorDetailInfo.doctorInfoData
-                let res = this.handleBuildPricePaymentProvince()
-                let priceOptions = res[0].filter(x => x.value === doctor_info.priceId)
-                let paymentOptions = res[1].filter(x => x.value === doctor_info.paymentId)
-                let provinceOptions = res[2].filter(x => x.value === doctor_info.provinceId)
+                let { prices, payments, provinces } = doctorInfoFromDoctorInfosTable
+                let priceOptions = this.handleBuildOptions(prices)
+                let paymentOptions = this.handleBuildOptions(payments)
+                let provinceOptions = this.handleBuildOptions(provinces)
+
+                priceOptions = priceOptions.filter(x => x.value === doctor_info.priceId)
+                paymentOptions = paymentOptions.filter(x => x.value === doctor_info.paymentId)
+                provinceOptions = provinceOptions.filter(x => x.value === doctor_info.provinceId)
+
                 this.setState({
                     nameClinicVi: doctor_info.nameClinicVi,
                     nameClinicEn: doctor_info.nameClinicEn,
                     addressClinicVi: doctor_info.addressClinicVi,
                     addressClinicEn: doctor_info.addressClinicEn,
                     noteVi: doctor_info.noteVi, noteEn: doctor_info.noteEn,
-                    selectedPrice: priceOptions,
-                    selectedPayment: paymentOptions,
-                    selectedProvince: provinceOptions
+                    selectedPrice: priceOptions[0],
+                    selectedPayment: paymentOptions[0],
+                    selectedProvince: provinceOptions[0]
                 })
             }
-            if (doctorDetailInfo.userPostData) {
+            if (doctorDetailInfo.userPostData && !_.isEmpty(doctorDetailInfo.userPostData)) {
                 let imageBase64 = '', objectUrl = ''
 
                 if (doctorDetailInfo.image && doctorDetailInfo.image.data.length === 0) {
@@ -120,14 +165,19 @@ class Doctors extends Component {
             }
         }
         if (prevProps.doctorInfoFromDoctorInfosTable !== doctorInfoFromDoctorInfosTable || prevProps.language !== language) {
-            let res = this.handleBuildPricePaymentProvince()
+
+            let { prices, payments, provinces } = doctorInfoFromDoctorInfosTable
+            let priceOptions = this.handleBuildOptions(prices)
+            let paymentOptions = this.handleBuildOptions(payments)
+            let provinceOptions = this.handleBuildOptions(provinces)
+
             this.setState({
-                selectedPrice: res[0][0],
-                selectedPayment: res[1][0],
-                selectedProvince: res[2][0],
-                prices: res[0],
-                payments: res[1],
-                provinces: res[2]
+                selectedPrice: priceOptions[0],
+                selectedPayment: paymentOptions[0],
+                selectedProvince: provinceOptions[0],
+                prices: priceOptions,
+                payments: paymentOptions,
+                provinces: provinceOptions
             })
         }
     }
@@ -144,23 +194,20 @@ class Doctors extends Component {
             contentMarkDownEn: text
         })
     }
-    handleBuildPricePaymentProvince = () => {
+    handleChange = (selectedOption, action) => {
+        console.log('selectedOption:', selectedOption)
         let { doctorInfoFromDoctorInfosTable } = this.props
         let { prices, payments, provinces } = doctorInfoFromDoctorInfosTable
         let priceOptions = this.handleBuildOptions(prices)
         let paymentOptions = this.handleBuildOptions(payments)
         let provinceOptions = this.handleBuildOptions(provinces)
-        return [priceOptions, paymentOptions, provinceOptions]
-    }
-    handleChange = (selectedOption, action) => {
-        let res = this.handleBuildPricePaymentProvince()
         let name = action.name
         if (name === 'selectedDoctor') {
             this.setState({
                 selectedDoctor: selectedOption,
-                selectedPrice: res[0][0],
-                selectedPayment: res[1][0],
-                selectedProvince: res[2][0],
+                selectedPrice: priceOptions[0],
+                selectedPayment: paymentOptions[0],
+                selectedProvince: provinceOptions[0],
                 contentMarkDownVi: '',
                 descriptionVi: '',
                 contentMarkDownEn: '',
@@ -174,7 +221,10 @@ class Doctors extends Component {
                 saveData: true,
                 previewImgURL: ''
             })
-            this.props.fetchDoctorDetailInfoByIDStart(selectedOption.value)
+            if (selectedOption) {
+                this.props.fetchDoctorDetailInfoByIDStart(selectedOption.value)
+            }
+
         } else {
             let copyState = { ...this.state }
             copyState[name] = selectedOption
@@ -228,7 +278,8 @@ class Doctors extends Component {
 
     handleCreateOrUpdateDoctorInfo = () => {
 
-        let { contentHtmlVi, contentMarkDownVi, descriptionVi, contentHtmlEn, contentMarkDownEn, descriptionEn, selectedDoctor, saveData, nameClinicVi, nameClinicEn, addressClinicVi, addressClinicEn, noteVi, noteEn, selectedPrice, selectedPayment, selectedProvince } = this.state
+        let { contentHtmlVi, contentMarkDownVi, descriptionVi, contentHtmlEn, contentMarkDownEn, descriptionEn, selectedDoctor, saveData, nameClinicVi, nameClinicEn, addressClinicVi, addressClinicEn, noteVi, noteEn, selectedPrice, selectedPayment, selectedProvince, selectedClinic, selectedSpecialty } = this.state
+
         let res = this.handleValidateData()
         if (res) {
             this.props.createOrUpdateDoctorInfoStart({
@@ -238,6 +289,8 @@ class Doctors extends Component {
                 paymentId: selectedPayment.value,
                 provinceId: selectedProvince.value,
                 doctorId: selectedDoctor.value,
+                clinicId: selectedClinic && selectedClinic.value ? selectedClinic.value : '',
+                specialtyId: selectedSpecialty.value,
                 action: saveData ? utils.CRUD.CREATE : utils.CRUD.UPDATE
             })
         } else {
@@ -256,11 +309,12 @@ class Doctors extends Component {
         this.setState({ isOpenImg: true })
     }
     handleCancel = () => {
-        let { doctorInfoFromDoctorInfosTable } = this.props
+        let { doctorInfoFromDoctorInfosTable, allNameSpecialties } = this.props
         let { prices, payments, provinces } = doctorInfoFromDoctorInfosTable
         let priceOptions = this.handleBuildOptions(prices)
         let paymentOptions = this.handleBuildOptions(payments)
         let provinceOptions = this.handleBuildOptions(provinces)
+        let specialtyOptions = this.handleBuildOptions(allNameSpecialties, 'AllNameSpecialties')
         this.setState({
             selectedDoctor_err: '', nameClinicVi_err: '', nameClinicEn_err: '', addressClinicVi_err: '', addressClinicEn_err: '', contentMarkDownVi_err: '', descriptionVi_err: '', descriptionEn_err: '', contentMarkDownEn_err: '',
             contentMarkDownVi: '', descriptionVi: '', contentMarkDownEn: '', descriptionEn: '',
@@ -269,13 +323,14 @@ class Doctors extends Component {
             selectedPrice: priceOptions && priceOptions[0],
             selectedPayment: paymentOptions && paymentOptions[0],
             selectedProvince: provinceOptions && provinceOptions[0],
+            selectedSpecialty: specialtyOptions && specialtyOptions[0],
             previewImgURL: '', saveData: true
         })
     }
 
     render() {
-
-        let { selectedDoctor_err, nameClinicVi_err, nameClinicEn_err, addressClinicVi_err, addressClinicEn_err, contentMarkDownVi_err, descriptionVi_err, descriptionEn_err, contentMarkDownEn_err, isOpenImg, selectedDoctor, descriptionVi, descriptionEn, nameDoctors, contentMarkDownVi, contentMarkDownEn, saveData, previewImgURL, provinces, payments, prices, selectedPrice, selectedPayment, selectedProvince, nameClinicVi, nameClinicEn, addressClinicVi, addressClinicEn, noteVi, noteEn } = this.state
+        console.log(this.state)
+        let { selectedDoctor_err, nameClinicVi_err, nameClinicEn_err, addressClinicVi_err, addressClinicEn_err, contentMarkDownVi_err, descriptionVi_err, descriptionEn_err, contentMarkDownEn_err, isOpenImg, selectedDoctor, descriptionVi, descriptionEn, nameDoctors, contentMarkDownVi, contentMarkDownEn, saveData, previewImgURL, provinces, payments, prices, selectedPrice, selectedPayment, selectedProvince, nameClinicVi, nameClinicEn, addressClinicVi, addressClinicEn, noteVi, noteEn, selectedSpecialty, specialties, selectedClinic, clinics } = this.state
         return (<>
             {isOpenImg &&
                 <Lightbox
@@ -311,6 +366,7 @@ class Doctors extends Component {
                                             <div className='col-6 form-group'>
                                                 <label><FormattedMessage id='users.manage-doctors.body.label1' /></label>
                                                 <Select
+                                                    isClearable
                                                     name='selectedDoctor'
                                                     placeholder={<FormattedMessage id='users.manage-doctors.body.label1' />}
                                                     value={selectedDoctor}
@@ -383,7 +439,6 @@ class Doctors extends Component {
                                             <div className='col-4 form-group'>
                                                 <label><FormattedMessage id='users.manage-doctors.body.label9' /></label>
                                                 <input onChange={(e) => this.handleChangeInput(e, 'noteVi')} value={noteVi} className='form-control' />
-
                                             </div>
                                         </div>
                                         <div className='row mb-3'>
@@ -403,18 +458,46 @@ class Doctors extends Component {
 
                                             </div>
                                         </div>
+                                        <div className='row mb-3'>
+                                            <div className='col-4 form-group'>
+                                                <label><FormattedMessage id='users.manage-doctors.body.label15' /></label>
+                                                <Select
+                                                    placeholder={<FormattedMessage id='users.manage-doctors.body.label15' />}
+                                                    value={selectedSpecialty}
+                                                    onChange={this.handleChange}
+                                                    name='selectedSpecialty'
+                                                    options={specialties}
+
+                                                />
+                                            </div>
+                                            <div className='col-4 form-group'>
+                                                <label><FormattedMessage id='users.manage-doctors.body.label16' /></label>
+                                                <Select
+                                                    placeholder={<FormattedMessage id='users.manage-doctors.body.label16' />}
+                                                    value={selectedClinic}
+                                                    onChange={this.handleChange}
+                                                    name='selectedClinic'
+                                                    options={clinics}
+
+                                                />
+                                                {/* <span className='text-danger'>{addressClinicEn_err}</span> */}
+                                            </div>
+                                            {/* <div className='col-4 form-group'>
+                                                <label><FormattedMessage id='users.manage-doctors.body.label12' /></label>
+                                                <input onChange={(e) => this.handleChangeInput(e, 'noteEn')} value={noteEn} className='form-control' />
+
+                                            </div> */}
+                                        </div>
                                         <div className='row'>
                                             <div className='col-12 form-group'>
                                                 <label><FormattedMessage id='users.manage-doctors.body.label13' /></label>{' '}<span className='text-danger'>{contentMarkDownVi_err}</span>
                                                 <MdEditor value={contentMarkDownVi} style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChangeVi} />
-
                                             </div>
                                         </div>
                                         <div className='row'>
                                             <div className='col-12 form-group'>
                                                 <label><FormattedMessage id='users.manage-doctors.body.label14' /></label>{' '}<span className='text-danger'>{contentMarkDownEn_err}</span>
                                                 <MdEditor value={contentMarkDownEn} style={{ height: '500px' }} renderHTML={text => mdParser.render(text)} onChange={this.handleEditorChangeEn} />
-
                                             </div>
                                         </div>
                                     </div>
@@ -443,7 +526,7 @@ const mapStateToProps = state => {
         doctorInfoFromDoctorInfosTable: state.doctor.doctorInfoFromDoctorInfosTable,
         language: state.app.language,
         nameDoctors: state.doctor.nameDoctors,
-        isCreatingOrUpdatingDoctorInfo: state.doctor.isCreatingOrUpdatingDoctorInfo,
+        allNameSpecialties: state.specialty.allNameSpecialties,
         doctorDetailInfo: state.homepage.doctorDetailInfo
     }
 }
@@ -452,6 +535,7 @@ const mapDispatchToProps = dispatch => {
     return {
         fetchDoctorInfoFromDoctorInfosTableStart: () => dispatch(actions.fetchDoctorInfoFromDoctorInfosTableStart()),
         getNameDoctorsStart: () => dispatch(actions.getNameDoctorsStart()),
+        fetchAllNameSpecialtiesStart: () => dispatch(actions.fetchAllNameSpecialtiesStart()),
         createOrUpdateDoctorInfoStart: (data) => dispatch(actions.createOrUpdateDoctorInfoStart(data)),
         fetchDoctorDetailInfoByIDStart: (id) => dispatch(actions.fetchDoctorDetailInfoByIDStart(id))
     }

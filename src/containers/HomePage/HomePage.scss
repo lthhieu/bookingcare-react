@@ -490,7 +490,7 @@
 
                 .section-img {
                     &.section-specialty {
-                        background: url('../../assets/images/Sections/Specialties/co-xuong-khop.jpg') center no-repeat;
+                        // background: url('../../assets/images/Sections/Specialties/co-xuong-khop.jpg') center no-repeat;
                     }
 
                     &.section-facility {
@@ -795,4 +795,28 @@
     margin-top: 30px;
     font-size: 22px;
     font-weight: 500;
+}
+
+.upload-avatar {
+    display: flex;
+    height: 45px;
+
+    .cus-btn-upload-image {
+        width: 120px;
+    }
+
+    .preview {
+        margin-left: 10px;
+
+        &.exist {
+            box-shadow: 2px 2px 4px 0 #ebebeb;
+            cursor: pointer;
+        }
+
+        height: 75px;
+        width: 150px;
+        background: center no-repeat;
+        background-size: contain;
+
+    }
 }

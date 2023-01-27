@@ -2,6 +2,8 @@ import { flatMap } from 'lodash';
 import actionTypes from '../actions/actionTypes';
 
 const initialState = {
+    isLoadingSpecialties: false,
+    specialties: [],
     isLoadingDoctors: false,
     doctors: [],
     isLoadingDoctorDetailInfo: false,
@@ -10,6 +12,24 @@ const initialState = {
 
 const homepageReducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.FETCH_SPECIALTY_HOME_START:
+            state.isLoadingSpecialties = true
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SPECIALTY_HOME_SUCCESS:
+            state.specialties = action.data
+            state.isLoadingSpecialties = false
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SPECIALTY_HOME_FAILED:
+            state.specialties = []
+            state.isLoadingSpecialties = false
+            return {
+                ...state
+            }
+
         case actionTypes.FETCH_DOCTOR_HOME_START:
             state.isLoadingDoctors = true
             return {

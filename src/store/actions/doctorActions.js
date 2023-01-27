@@ -43,6 +43,7 @@ export const createOrUpdateDoctorInfoStart = (data) => {
                 } else if (res.msg === utils.ALERTS.UPDATE) {
                     toast.success(<FormattedMessage id="users.manage-doctors.toast.update.success" />)
                 }
+                utils.emitter.emit('CREATE OR UPDATE DOCTOR INFO SUCCESSFULLY')
             } else {
                 toast.error(<FormattedMessage id="users.manage-doctors.toast.error" />)
                 dispatch(createOrUpdateDoctorInfoFailed())
