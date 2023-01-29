@@ -55,3 +55,31 @@ export const createSpecialtySuccess = () => ({
 export const createSpecialtyFailed = () => ({
     type: actionTypes.CREATE_SPECIALTY_FAILED
 })
+
+export const fetchSpecialtyDetailStart = (id, location) => {
+    return async (dispatch, getState) => {
+        try {
+            dispatch({
+                type: actionTypes.FETCH_SPECIALTY_DETAIL_START
+            })
+            let res = await services.fetchSpecialtyDetailService(id, location)
+            if (res && res.errCode === '0') {
+                let data = {}
+                if (res.data) { data.data = res.data }
+                if (res.arrDoctorId) { data.arrDoctorId = res.arrDoctorId }
+                dispatch(fetchSpecialtyDetailSuccess(data))
+            } else {
+                dispatch(fetchSpecialtyDetailFailed())
+            }
+        } catch (e) {
+            console.log('fetchSpecialtyDetailStart error:', e)
+        }
+    }
+}
+export const fetchSpecialtyDetailSuccess = (data) => ({
+    type: actionTypes.FETCH_SPECIALTY_DETAIL_SUCCESS,
+    data
+})
+export const fetchSpecialtyDetailFailed = () => ({
+    type: actionTypes.FETCH_SPECIALTY_DETAIL_FAILED
+})

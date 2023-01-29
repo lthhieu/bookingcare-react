@@ -45,6 +45,43 @@
     display: none !important;
 }
 
+.specialty-container {
+    background-color: #eeeeee;
+
+    .specialty-description {
+        min-height: 200px;
+        background-color: white;
+    }
+
+    .specialty-select {
+        margin: 0 65px;
+    }
+
+    .specialty-body {
+        margin: 0 65px;
+        padding-bottom: 25px;
+
+        .doctor-in-specialty {
+            background-color: #fff;
+            box-shadow: 0 1px 6px #20212447;
+            border-radius: 8px;
+            display: flex;
+            width: 100%;
+            margin-top: 25px;
+            min-height: 250px;
+
+            .left {
+                width: 50%;
+            }
+
+            .right {
+                width: 50%;
+            }
+        }
+    }
+
+
+}
 
 .header-container {
     height: 80px;
@@ -571,6 +608,10 @@
     display: flex;
     margin: 0 60px;
 
+    &.in-specialty {
+        margin: 8px 0;
+    }
+
     &.in-modal {
         background-color: #eee;
         width: 100%;
@@ -581,33 +622,197 @@
     }
 
     .content-left {
+        &.in-specialty {
+            width: 80px;
+            height: 80px;
+            min-width: 80px;
+
+            .see-more {
+                margin-top: 85px;
+                color: #45c3d2;
+                cursor: pointer;
+            }
+        }
+
         border-radius: 50%;
-        width: 130px;
-        height: 130px;
+        width: 120px;
+        height: 120px;
         background: center no-repeat;
         background-size: cover;
-        margin: 0px 10px;
+        margin: 10px;
     }
 
     .content-right {
         display: table-cell;
 
+        &.in-specialty {
+            margin-right: 25px;
+        }
+
         .doctor-name {
             font-size: 27px;
             font-weight: 600;
 
+            &.in-specialty {
+                font-size: 20px;
+                font-weight: 500;
+                color: #45c3d2;
+            }
+
             &.modal-name {
-                font-size: 21px;
+                font-size: 20px;
                 color: #337ab7;
                 font-weight: 600;
             }
         }
 
         .doctor-info {
+            text-align: justify;
             color: #555;
             font-size: 14px;
+            padding-top: 5px;
+            margin-bottom: 5px;
+
+        }
+
+        .color-location {
+            color: #555;
+        }
+    }
+}
+
+.schedule-container {
+    &.in-specialty {
+        border-left: 1px solid #eee;
+        padding-left: 10px;
+    }
+
+    .select-date {
+        font-size: 16px;
+        padding-bottom: 5px;
+
+        select {
+            cursor: pointer;
+            border: none;
+            outline: none;
+            border-bottom: 1px solid #999;
+            color: #337ab7;
+            font-weight: 600;
+            padding: 5px;
+        }
+    }
+
+    .select-time {
+        .text {
+            color: #333;
+            font-size: 15px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .available-time {
+            margin-top: 5px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+
+            .vi {
+                min-width: 150px;
+            }
+
+            .en {
+                min-width: 185px;
+            }
+
+            button {
+
+                border: 2px solid #eee;
+                background-color: #eee;
+                padding: 8px;
+                color: #333;
+                font-weight: 600;
+
+                &:hover {
+                    border: 2px solid #45c3d2;
+                }
+            }
+        }
+
+        .text-choose {
+            margin-top: 14px;
+        }
+
+
+    }
+}
+
+.doctor-info-container {
+    &.in-specialty {
+        padding-left: 10px;
+    }
+
+    .up {
+        &.up-specialty {
+            border-top: 1px solid #eee;
+            margin: 10px 0;
             padding-top: 10px;
         }
+
+        .title-text {
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .clinic-name {
+            padding: 5px 0;
+            font-weight: 600;
+            padding-bottom: 7px;
+        }
+    }
+
+    .down {
+
+        border-top: 1px solid #eee;
+        margin: 10px 0;
+        padding-top: 10px;
+
+        .title-text {
+            text-transform: uppercase;
+            color: #666;
+            font-weight: 600;
+            font-size: 15px;
+        }
+
+        .tbl {
+            margin: 7px 0;
+            width: 100%;
+            border: 1px solid #ddd;
+            background: #eee;
+
+            .bg-1 {
+                background: #f8f8f8;
+                border-top: 1px solid #ddd;
+                padding: 3px;
+                vertical-align: top;
+            }
+
+            .sub {
+                font-size: 13px;
+            }
+
+            .foot {
+                border-top: 1px solid #ddd;
+                padding: 8px 3px 3px 3px;
+            }
+        }
+
+        .hide-tbl {
+            cursor: pointer;
+            color: #51c7d5;
+        }
+
     }
 }
 
@@ -651,65 +856,6 @@
 
         .left {
             width: 55%;
-
-            .left-container {
-                .select-date {
-                    font-size: 16px;
-                    padding-bottom: 5px;
-
-                    select {
-                        border: none;
-                        outline: none;
-                        border-bottom: 1px solid #999;
-                        color: #337ab7;
-                        font-weight: 600;
-                        padding: 5px;
-                    }
-                }
-
-                .select-time {
-                    .text {
-                        color: #333;
-                        font-size: 15px;
-                        text-transform: uppercase;
-                        font-weight: 600;
-                    }
-
-                    .available-time {
-                        margin-top: 5px;
-                        display: flex;
-                        gap: 15px;
-                        flex-wrap: wrap;
-
-                        .vi {
-                            min-width: 150px;
-                        }
-
-                        .en {
-                            min-width: 185px;
-                        }
-
-                        button {
-
-                            border: 2px solid #eee;
-                            background-color: #eee;
-                            padding: 8px;
-                            color: #333;
-                            font-weight: 600;
-
-                            &:hover {
-                                border: 2px solid #45c3d2;
-                            }
-                        }
-                    }
-
-                    .text-choose {
-                        margin-top: 14px;
-                    }
-
-
-                }
-            }
         }
 
         .right {
@@ -717,63 +863,6 @@
             width: 45%;
             border-left: 1px solid #ddd;
 
-            .up {
-                .title-text {
-                    text-transform: uppercase;
-                    color: #666;
-                    font-weight: 600;
-                    font-size: 15px;
-                }
-
-                .clinic-name {
-                    padding: 5px 0;
-                    font-weight: 600;
-                    padding-bottom: 7px;
-                }
-            }
-
-            .down {
-
-                border-top: 1px solid #eee;
-                margin: 10px 0;
-                padding-top: 10px;
-
-                .title-text {
-                    text-transform: uppercase;
-                    color: #666;
-                    font-weight: 600;
-                    font-size: 15px;
-                }
-
-                .tbl {
-                    margin: 7px 0;
-                    width: 100%;
-                    border: 1px solid #ddd;
-                    background: #eee;
-
-                    .bg-1 {
-                        background: #f8f8f8;
-                        border-top: 1px solid #ddd;
-                        padding: 3px;
-                        vertical-align: top;
-                    }
-
-                    .sub {
-                        font-size: 13px;
-                    }
-
-                    .foot {
-                        border-top: 1px solid #ddd;
-                        padding: 8px 3px 3px 3px;
-                    }
-                }
-
-                .hide-tbl {
-                    cursor: pointer;
-                    color: #51c7d5;
-                }
-
-            }
         }
     }
 

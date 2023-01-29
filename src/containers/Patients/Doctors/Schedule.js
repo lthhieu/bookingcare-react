@@ -6,6 +6,8 @@ import moment from 'moment'
 import vi from 'moment/locale/vi'
 import { FormattedMessage } from 'react-intl'
 import BookingModal from './BookingModal'
+import * as services from '../../../services'
+import { toast } from 'react-toastify'
 class Schedule extends Component {
     constructor(props) {
         super(props)
@@ -19,7 +21,20 @@ class Schedule extends Component {
     }
     componentDidMount() {
         let options = this.handleCreateDateOptions()
-        this.setState({ options })
+        this.setState({ options }, async () => {
+            if (options) {
+                if (this.props.doctorId) {
+                    let res = await services.fetchDoctorScheduleService(this.props.doctorId, options[0].value)
+                    if (res && res.errCode === '0') {
+                        this.setState({ doctorSchedule: res.data })
+                    } else {
+                        toast.error('Something went wrong..')
+                    }
+                }
+
+                // await fetchScheduleDoctorStart(doctorId, options[0].value)
+            }
+        })
     }
     async componentDidUpdate(prevProps, prevState) {
         let { options } = this.state
@@ -34,7 +49,13 @@ class Schedule extends Component {
         if (prevProps.doctorId !== doctorId) {
             if (options) {
                 this.setState({ doctorId })
-                await fetchScheduleDoctorStart(doctorId, options[0].value)
+                let res = await services.fetchDoctorScheduleService(doctorId, options[0].value)
+                if (res && res.errCode === '0') {
+                    this.setState({ doctorSchedule: res.data })
+                } else {
+                    toast.error('Something went wrong..')
+                }
+                // await fetchScheduleDoctorStart(doctorId, options[0].value)
             }
         }
     }
@@ -61,18 +82,25 @@ class Schedule extends Component {
     }
     handleClickDate = async (e) => {
         let { doctorId, fetchScheduleDoctorStart } = this.props
-        await fetchScheduleDoctorStart(doctorId, e.target.value)
+        let res = await services.fetchDoctorScheduleService(doctorId, e.target.value)
+        if (res && res.errCode === '0') {
+            this.setState({ doctorSchedule: res.data })
+        } else {
+            toast.error('Something went wrong..')
+        }
+
+        // await fetchScheduleDoctorStart(doctorId, e.target.value)
     }
     handleOpenModal = (data) => {
         this.setState({ openModal: !this.state.openModal, dataModal: data })
     }
     render() {
         let { options, doctorSchedule, openModal, dataModal, doctorId } = this.state
-        let { language } = this.props
+        let { language, specialty } = this.props
 
         return (
             <>
-                <div className='left-container'>
+                <div className={specialty ? 'schedule-container in-specialty' : 'schedule-container'}>
                     <div className='select-date'>
                         <select onChange={(e) => this.handleClickDate(e)}>{options && options.length > 0 &&
                             options.map((item, index) => {

@@ -11,6 +11,7 @@ import * as utils from '../../../../utils'
 import Lightbox from 'react-image-lightbox';
 import { toast } from 'react-toastify';
 import _ from 'lodash';
+import { createLogger } from 'redux-logger';
 
 const mdParser = new MarkdownIt(/* Markdown-it options */);
 
@@ -114,8 +115,8 @@ class Doctors extends Component {
             if (doctorDetailInfo.doctorData && !_.isEmpty(doctorDetailInfo.doctorData)) {
                 let doctorData = doctorDetailInfo.doctorData
                 let specialtyOptions = this.handleBuildOptions(allNameSpecialties, 'AllNameSpecialties')
-                specialtyOptions = specialtyOptions.filter(x => x.value === doctorData.specialtyId)
-                this.setState({ selectedSpecialty: specialtyOptions[0] })
+                specialtyOptions = specialtyOptions.find(x => x.value === doctorData.specialtyId)
+                this.setState({ selectedSpecialty: specialtyOptions })
             }
             if (doctorDetailInfo.doctorInfoData && !_.isEmpty(doctorDetailInfo.doctorInfoData)) {
                 let doctor_info = doctorDetailInfo.doctorInfoData
@@ -124,9 +125,9 @@ class Doctors extends Component {
                 let paymentOptions = this.handleBuildOptions(payments)
                 let provinceOptions = this.handleBuildOptions(provinces)
 
-                priceOptions = priceOptions.filter(x => x.value === doctor_info.priceId)
-                paymentOptions = paymentOptions.filter(x => x.value === doctor_info.paymentId)
-                provinceOptions = provinceOptions.filter(x => x.value === doctor_info.provinceId)
+                priceOptions = priceOptions.find(x => x.value === doctor_info.priceId)
+                paymentOptions = paymentOptions.find(x => x.value === doctor_info.paymentId)
+                provinceOptions = provinceOptions.find(x => x.value === doctor_info.provinceId)
 
                 this.setState({
                     nameClinicVi: doctor_info.nameClinicVi,
@@ -134,9 +135,9 @@ class Doctors extends Component {
                     addressClinicVi: doctor_info.addressClinicVi,
                     addressClinicEn: doctor_info.addressClinicEn,
                     noteVi: doctor_info.noteVi, noteEn: doctor_info.noteEn,
-                    selectedPrice: priceOptions[0],
-                    selectedPayment: paymentOptions[0],
-                    selectedProvince: provinceOptions[0]
+                    selectedPrice: priceOptions,
+                    selectedPayment: paymentOptions,
+                    selectedProvince: provinceOptions
                 })
             }
             if (doctorDetailInfo.userPostData && !_.isEmpty(doctorDetailInfo.userPostData)) {
@@ -195,7 +196,6 @@ class Doctors extends Component {
         })
     }
     handleChange = (selectedOption, action) => {
-        console.log('selectedOption:', selectedOption)
         let { doctorInfoFromDoctorInfosTable } = this.props
         let { prices, payments, provinces } = doctorInfoFromDoctorInfosTable
         let priceOptions = this.handleBuildOptions(prices)
@@ -329,7 +329,6 @@ class Doctors extends Component {
     }
 
     render() {
-        console.log(this.state)
         let { selectedDoctor_err, nameClinicVi_err, nameClinicEn_err, addressClinicVi_err, addressClinicEn_err, contentMarkDownVi_err, descriptionVi_err, descriptionEn_err, contentMarkDownEn_err, isOpenImg, selectedDoctor, descriptionVi, descriptionEn, nameDoctors, contentMarkDownVi, contentMarkDownEn, saveData, previewImgURL, provinces, payments, prices, selectedPrice, selectedPayment, selectedProvince, nameClinicVi, nameClinicEn, addressClinicVi, addressClinicEn, noteVi, noteEn, selectedSpecialty, specialties, selectedClinic, clinics } = this.state
         return (<>
             {isOpenImg &&

@@ -3,7 +3,9 @@ import actionTypes from '../actions/actionTypes';
 const initialState = {
     isCreatingSpecialty: false,
     isLoadingAllNameSpecialties: false,
-    allNameSpecialties: []
+    allNameSpecialties: [],
+    isLoadingSpecialtyDetail: false,
+    specialtyDetail: []
 }
 
 const specialtyReducer = (state = initialState, action) => {
@@ -37,6 +39,24 @@ const specialtyReducer = (state = initialState, action) => {
         case actionTypes.FETCH_ALL_NAME_SPECIALTIES_FAILED:
             state.allNameSpecialties = []
             state.isLoadingAllNameSpecialties = false
+            return {
+                ...state
+            }
+
+        case actionTypes.FETCH_SPECIALTY_DETAIL_START:
+            state.isLoadingSpecialtyDetail = true
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SPECIALTY_DETAIL_SUCCESS:
+            state.specialtyDetail = action.data
+            state.isLoadingSpecialtyDetail = false
+            return {
+                ...state
+            }
+        case actionTypes.FETCH_SPECIALTY_DETAIL_FAILED:
+            state.specialtyDetail = []
+            state.isLoadingSpecialtyDetail = false
             return {
                 ...state
             }
